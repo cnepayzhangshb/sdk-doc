@@ -98,7 +98,6 @@ Authorization: SIGN <appid>:<signature>
 | 单一商户     | /merchant/:id                            | GET / PUT / DELETE |
 | 设备        | /device                                  | GET / POST         |
 | 单一设备     | /device/:ksnno                           | GET / PUT / DELETE |
-|----------------------------------------------------------------------------|
 
 
 <a id="regcode"></a>
