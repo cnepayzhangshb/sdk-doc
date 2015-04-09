@@ -29,7 +29,7 @@ curl -X {GET|POST|PUT|DELETE} \
 ```
 
 ## 标准响应
-签名校验通过的情况下
+* 签名校验通过的情况下
 
 ```
 HTTP/1.1 200 OK
@@ -43,17 +43,23 @@ Content-Length: 100
 ...body...
 ```
 
-签名校验未通过的情况下
+* 签名校验未通过的情况下
 
-> HTTP/1.1 401 Unauthorized
+```
+HTTP/1.1 401 Unauthorized
+```
 
-请求 Method 不被支持的情况下
+* 请求 Method 不被支持的情况下
 
-> HTTP/1.1 405 Method Not Allowed
+```
+HTTP/1.1 405 Method Not Allowed
+```
 
-请求参数不正确的情况下
+* 请求参数不正确的情况下
 
-> HTTP/1.1 403 Forbidden
+```
+HTTP/1.1 403 Forbidden
+```
 
 ## 授权认证
 调用所有接口需要进行授权认证，通过在 HTTP Request Header 中添加 `Authorization` 的方式来进行权限验证：
