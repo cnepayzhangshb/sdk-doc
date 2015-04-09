@@ -1,11 +1,13 @@
 # 中汇移动支付，用户接口规范
 > **Beta:**
 > 该API仍处于 Beta 阶段
+
 ```
 1. 该接口适用对象：服务商的服务器
 2. 该接口实现功能：用户的创建与管理，商户的创建与管理，设备的绑定与管理
 3. 该接口调用规范：采用REST规范的HTTPS请求与中汇的服务器进行通信
 ```
+
 > **注：**
 > 文中所有 `<>` 标注的字段，均需根据你的实际情况替换（无需 `<>` 符号，仅作标注之用）
 > 文中所有 `:id` 标注的字段，均需根据该资源的实际 `id` 值替换
@@ -28,6 +30,7 @@ curl -X {GET|POST|PUT|DELETE} \
 
 ## 标准响应
 签名校验通过的情况下
+
 ```
 HTTP/1.1 200 OK
 Server: Nginx
@@ -39,24 +42,26 @@ Content-Length: 100
 
 ...body...
 ```
+
 签名校验未通过的情况下
-```
-HTTP/1.1 401 Unauthorized
-```
+
+> HTTP/1.1 401 Unauthorized
+
 请求 Method 不被支持的情况下
-```
-HTTP/1.1 405 Method Not Allowed
-```
+
+> HTTP/1.1 405 Method Not Allowed
+
 请求参数不正确的情况下
-```
-HTTP/1.1 403 Forbidden
-```
+
+> HTTP/1.1 403 Forbidden
 
 ## 授权认证
 调用所有接口需要进行授权认证，通过在 HTTP Request Header 中添加 `Authorization` 的方式来进行权限验证：
+
 ```
 Authorization: SIGN <appid>:<signature>
 ```
+
 其中 *`appid`* 为服务商获取的 **appid** 身份，*`signature`* 为使用服务商获取的 **appkey**，根据参数计算出来的签名。
 > **注：**
 > **`appkey`** 作为服务商或者API使用者使用接口的特定凭证，是不能对外公开或在客户端存储使用的，是一个私有数字凭证
@@ -88,7 +93,7 @@ Authorization: SIGN <appid>:<signature>
 | 设备        | /device                                  | GET / POST         |
 | 单一设备     | /device/:ksnno                           | GET / PUT / DELETE |
 
-***
+- - -
 <a id="regcode"></a>
 ### 注册验证码  /registercode
 1\. 通过注册手机号发送注册验证码
