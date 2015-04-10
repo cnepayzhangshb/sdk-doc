@@ -7,7 +7,6 @@
 2. 该接口实现功能：用户的创建与管理，商户的创建与管理，设备的绑定与管理
 3. 该接口调用规范：采用REST规范的HTTPS请求与中汇的服务器进行通信
 ```
-
 > **注：**
 > 文中所有 `<>` 标注的字段，均需根据你的实际情况替换（无需 `<>` 符号，仅作标注之用）
 > 文中所有 `:id` 标注的字段，均需根据该资源的实际 `id` 值替换
@@ -76,15 +75,13 @@ Authorization: SIGN <appid>:<signature>
 
 授权认证过程中的 *`signature`* 参数通过下面的方式获得：
 
-> **1\.** 将HTTP请求头中的数据当成头部数据 `<head>`
-> **2\.** 如果该请求含有 body，将整个 body 数据按照以下规则转换为 `<body>`
-> 
-> **a)** 如果该请求 `Content-Type` 为 `application/json` 或者 `application/x-www-form-urlencoded` ，则直接将body内容当作 `<body>`
-> **b)** 如果该请求 `Content-Type` 为 `multipart/form-data`， 我们会在后面的 **附录** 中解释如何转化为 `<body>`
-> 
-> **3\.** 将 *`appkey`* 作为 `<key>`
-> **4\.** 将 *`appid`* 作为 `<id>`
-> **5\.** 连接整个数据 `<id><head><body><key>` 并对其进行MD5签名，得到 *`signature`*
+> 1. 将HTTP请求头中的数据当成头部数据 `<head>`
+> 2. 如果该请求含有 body，将整个 body 数据按照以下规则转换为 `<body>`  
+> **a)** 如果该请求 `Content-Type` 为 `application/json` 或者 `application/x-www-form-urlencoded` ，则直接将body内容当作 `<body>`  
+> **b)** 如果该请求 `Content-Type` 为 `multipart/form-data`， 我们会在后面的 **附录** 中解释如何转化为 `<body>`  
+> 3. 将 *`appkey`* 作为 `<key>`
+> 4. 将 *`appid`* 作为 `<id>`
+> 5. 连接整个数据 `<id><head><body><key>` 并对其进行MD5签名，得到 *`signature`*
 
 特别地，参数字符串都必须使用 Encoding `utf-8` 编码处理
 
@@ -101,7 +98,8 @@ Authorization: SIGN <appid>:<signature>
 | 设备        | /device                                  | GET / POST         |
 | 单一设备     | /device/:ksnno                           | GET / PUT / DELETE |
 
-
+  
+---
 <a id="regcode"></a>
 ### 注册验证码  /registercode
 #### 1\. 通过注册手机号发送注册验证码
