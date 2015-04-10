@@ -28,8 +28,7 @@ curl -X {GET|POST|PUT|DELETE} \
 ```
 
 ## 标准响应
-* 签名校验通过的情况下
-
+* 签名校验通过的情况下  
 ```
 HTTP/1.1 200 OK
 Server: Nginx
@@ -42,31 +41,24 @@ Content-Length: 100
 ...body...
 ```
 
-* 签名校验未通过的情况下
-
+* 签名校验未通过的情况下  
 ```
 HTTP/1.1 401 Unauthorized
 ```
-
-* 请求 Method 不被支持的情况下
-
+* 请求 Method 不被支持的情况下  
 ```
 HTTP/1.1 405 Method Not Allowed
 ```
-
-* 请求参数不正确的情况下
-
+* 请求参数不正确的情况下  
 ```
 HTTP/1.1 403 Forbidden
 ```
 
 ## 授权认证
-调用所有接口需要进行授权认证，通过在 HTTP Request Header 中添加 `Authorization` 的方式来进行权限验证：
-
+调用所有接口需要进行授权认证，通过在 HTTP Request Header 中添加 `Authorization` 的方式来进行权限验证：  
 ```
 Authorization: SIGN <appid>:<signature>
 ```
-
 其中 *`appid`* 为服务商获取的 **appid** 身份，*`signature`* 为使用服务商获取的 **appkey**，根据参数计算出来的签名。
 > **注：**
 > **`appkey`** 作为服务商或者API使用者使用接口的特定凭证，是不能对外公开或在客户端存储使用的，是一个私有数字凭证
@@ -74,7 +66,6 @@ Authorization: SIGN <appid>:<signature>
 ### 签名算法
 
 授权认证过程中的 *`signature`* 参数通过下面的方式获得：
-
 > 1. 将HTTP请求头中的数据当成头部数据 `<head>`
 > 2. 如果该请求含有 body，将整个 body 数据按照以下规则转换为 `<body>`  
 > **a)** 如果该请求 `Content-Type` 为 `application/json` 或者 `application/x-www-form-urlencoded` ，则直接将body内容当作 `<body>`  
@@ -99,7 +90,7 @@ Authorization: SIGN <appid>:<signature>
 | 单一设备     | /device/:ksnno                           | GET / PUT / DELETE |
 
   
---------------------------------------------------------------------
+----------------------------------------------------------------------------------
 <a id="regcode"></a>
 ### 注册验证码  /registercode
 #### 1\. 通过注册手机号发送注册验证码
@@ -118,7 +109,6 @@ Content-Length: 30
   "timeout": 180000
 }
 ```
-
 响应：  
 ```
 HTTP/1.1 200 OK
