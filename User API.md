@@ -99,11 +99,11 @@ Authorization: SIGN <appid>:<signature>
 | 单一设备     | /device/:ksnno                           | GET / PUT / DELETE |
 
   
----
+--------------------------------------------------------------------
 <a id="regcode"></a>
 ### 注册验证码  /registercode
 #### 1\. 通过注册手机号发送注册验证码
-请求：
+请求：  
 ```
 POST /registercode HTTP/1.1
 Host: api.vcpos.cn
@@ -118,7 +118,7 @@ Content-Length: 30
   "timeout": 180000
 }
 ```
-响应：
+响应：  
 ```
 HTTP/1.1 200 OK
 Server: Nginx
@@ -148,7 +148,7 @@ Content-Length: 100
 }
 ```
 #### 2\. 通过接收验证码验证手机号，以获取registertoken，用于注册
-请求：
+请求：  
 ```
 POST /registercode HTTP/1.1
 Host: api.vcpos.cn
@@ -163,7 +163,7 @@ Content-Length: 30
   "registercode": "4028"
 }
 ```
-响应：
+响应：  
 ```
 {
   "msg": "验证码验证成功",
@@ -189,7 +189,7 @@ Content-Length: 30
 <a id="user"></a>
 ### 用户 /user
 #### 1\. 通过registertoken创建用户
-请求：
+请求：  
 ```
 POST /user HTTP/1.1
 Host: api.vcpos.cn
@@ -207,7 +207,7 @@ Content-Length: 100
   }
 }
 ```
-响应：
+响应：  
 ```
 {
   "msg": "用户注册成功",
@@ -224,14 +224,14 @@ Content-Length: 100
 ```
 
 #### 2\. 获取指定用户手机号的用户信息
-请求：
+请求：  
 ```
 GET /user?cellphone=13811190292 HTTP/1.1
 Host: api.vcpos.cn
 Authorization: SIGN appid:md5signature
 Date: Wed, 8 Apr 2015 15:51 GMT
 ```
-响应：
+响应：  
 ```
 {
   "status": 0,
