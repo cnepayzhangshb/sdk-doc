@@ -76,13 +76,15 @@ Authorization: SIGN <appid>:<signature>
 
 授权认证过程中的 *`signature`* 参数通过下面的方式获得：
 
-> 1. 将HTTP请求头中的数据当成头部数据 `<head>`
-> 2. 如果该请求含有 body，将整个 body 数据按照以下规则转换为 `<body>`
+> **1\.** 将HTTP请求头中的数据当成头部数据 `<head>`
+> **2\.** 如果该请求含有 body，将整个 body 数据按照以下规则转换为 `<body>`
+> 
 > **a)** 如果该请求 `Content-Type` 为 `application/json` 或者 `application/x-www-form-urlencoded` ，则直接将body内容当作 `<body>`
 > **b)** 如果该请求 `Content-Type` 为 `multipart/form-data`， 我们会在后面的 **附录** 中解释如何转化为 `<body>`
-> 3. 将 *`appkey`* 作为 `<key>`
-> 4. 将 *`appid`* 作为 `<id>`
-> 5. 连接整个数据 `<id><head><body><key>` 并对其进行MD5签名，得到 *`signature`*
+> 
+> **3\.** 将 *`appkey`* 作为 `<key>`
+> **4\.** 将 *`appid`* 作为 `<id>`
+> **5\.** 连接整个数据 `<id><head><body><key>` 并对其进行MD5签名，得到 *`signature`*
 
 特别地，参数字符串都必须使用 Encoding `utf-8` 编码处理
 
@@ -102,8 +104,8 @@ Authorization: SIGN <appid>:<signature>
 
 <a id="regcode"></a>
 ### 注册验证码  /registercode
-1\. 通过注册手机号发送注册验证码
-#### 请求：
+#### 1\. 通过注册手机号发送注册验证码
+请求：
 ```
 POST /registercode HTTP/1.1
 Host: api.vcpos.cn
@@ -118,7 +120,7 @@ Content-Length: 30
   "timeout": 180000
 }
 ```
-#### 响应：
+响应：
 ```
 HTTP/1.1 200 OK
 Server: Nginx
@@ -147,8 +149,8 @@ Content-Length: 100
   "code": 2,
 }
 ```
-2\. 通过接收验证码验证手机号，以获取registertoken，用于注册
-#### 请求：
+#### 2\. 通过接收验证码验证手机号，以获取registertoken，用于注册
+请求：
 ```
 POST /registercode HTTP/1.1
 Host: api.vcpos.cn
@@ -163,7 +165,7 @@ Content-Length: 30
   "registercode": "4028"
 }
 ```
-#### 响应：
+响应：
 ```
 {
   "msg": "验证码验证成功",
@@ -188,8 +190,8 @@ Content-Length: 30
 
 <a id="user"></a>
 ### 用户 /user
-1\. 通过registertoken创建用户
-#### 请求：
+#### 1\. 通过registertoken创建用户
+请求：
 ```
 POST /user HTTP/1.1
 Host: api.vcpos.cn
@@ -207,7 +209,7 @@ Content-Length: 100
   }
 }
 ```
-#### 响应：
+响应：
 ```
 {
   "msg": "用户注册成功",
@@ -223,15 +225,15 @@ Content-Length: 100
 }
 ```
 
-2\. 获取指定用户手机号的用户信息
-#### 请求：
+#### 2\. 获取指定用户手机号的用户信息
+请求：
 ```
 GET /user?cellphone=13811190292 HTTP/1.1
 Host: api.vcpos.cn
 Authorization: SIGN appid:md5signature
 Date: Wed, 8 Apr 2015 15:51 GMT
 ```
-#### 响应：
+响应：
 ```
 {
   "status": 0,
