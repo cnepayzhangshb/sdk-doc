@@ -63,13 +63,6 @@ HTTP/1.1 403 Forbidden
 | 资源名称     | 路径                                     | Content-Type         |
 |-------------|-----------------------------------------|----------------------|
 | 刷卡设备初始化| [/pay/init](#init)                      | urlencoded           |
-| 用户         | [/user](#user)                          | urlencoded        |
-| 单一用户     | /user/:id                                | urlencoded        |
-| 用户实名资料  | /user/:id/realname                      | urlencoded         |
-| 商户        | /merchant                                | GET / POST         |
-| 单一商户     | /merchant/:id                            | GET / PUT / DELETE |
-| 设备        | /device                                  | GET / POST         |
-| 单一设备     | /device/:ksnno                           | GET / PUT / DELETE |
 
   
 ----------------------------------------------------------------------------------
@@ -85,7 +78,7 @@ Content-Type: application/x-www-form-urlencoded; charset=utf-8
 Content-Length: 30
 x-order-id: 0020150303120864123456
 
-ksnNo=600012345678&
+ksnNo=600012345678
 ```
 响应：  
 ```
@@ -96,126 +89,16 @@ Content-Type: application/json; charset=utf-8
 Connection: keep-alive
 Cache-Control: no-cache
 Content-Length: 100
+x-zftapi-request-id: 81e1d8cf-60b1-426c-bd96-8e39c9f57235
 
 {
-  "msg": "验证码发送成功",
-  "code": 0
-}
-
-// or
-
-{
-  "msg": "验证码请求次数过多",
-  "code": 1
-}
-
-// or
-
-{
-  "msg": "手机号已被注册",
-  "code": 2,
-}
-```
-#### 2\. 通过接收验证码验证手机号，以获取registertoken，用于注册
-请求：  
-```
-POST /registercode HTTP/1.1
-Host: api.vcpos.cn
-Authorization: SIGN appid:md5signature
-Date: Wed, 8 Apr 2015 15:51 GMT
-Content-Type: application/json; charset=utf-8
-Content-Length: 30
-
-{
-  "cellphone": "13811190292",
-  "action": "verify",
-  "registercode": "4028"
-}
-```
-响应：  
-```
-{
-  "msg": "验证码验证成功",
-  "code": 0,
-  "registertoken": "1aef1dacf4424acaf1e3"
-}
-
-// or
-
-{
-  "msg": "验证码错误",
-  "code": 1,
-}
-
-// or
-
-{
-  "msg": "验证码已过期",
-  "code": 2,
-}
-```
-
-<a id="user"></a>
-### 用户 /user
-#### 1\. 通过registertoken创建用户
-请求：  
-```
-POST /user HTTP/1.1
-Host: api.vcpos.cn
-Authorization: SIGN appid:md5signature
-Date: Wed, 8 Apr 2015 15:51 GMT
-Content-Type: application/json; charset=utf-8
-Content-Length: 100
-
-{
-  "registertoken": "1aef1dacf4424acaf1e3",
-  "user": {
-    "cellphone": "13811122334",
-    "username": "vcposuser",
-    "realname": "小明"
-  }
-}
-```
-响应：  
-```
-{
-  "msg": "用户注册成功",
-  "code": 0,
-  "user": {
-    "_id": 3579246,
-    "_createtime": 1928739283,
-    "avatar": "",
-    "username": "vcposuser",
-    "cellphone": "13811190292",
-    "realname": "小明"
-  }
-}
-```
-
-#### 2\. 获取指定用户手机号的用户信息
-请求：  
-```
-GET /user?cellphone=13811190292 HTTP/1.1
-Host: api.vcpos.cn
-Authorization: SIGN appid:md5signature
-Date: Wed, 8 Apr 2015 15:51 GMT
-```
-响应：  
-```
-{
-  "status": 0,
-  "total": 1,
-  "index": 0,
-  "user": [
-    {
-      "_id": 3579246,
-      "_createtime": 1928739283,
-      "avatar": "",
-      "username": "vcposuser",
-      "cellphone": "13811190292",
-      "realname": "小明",
-      ""
-    }
-  ]
+  "respMsg": "验证码发送成功",
+  "respCode": "success",
+  "isSuccess": true,
+  "respTime": "201503080",
+  "model": "landim35",
+  "aids": [],
+  "rids": [],
+  "workey": "1312324123182AD23234BC"
 }
 ```

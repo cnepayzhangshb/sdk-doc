@@ -84,7 +84,8 @@ Authorization: SIGN <appid>:<signature>
 | 资源名称     | 路径                                     | 可使用的方法         |
 |-------------|-----------------------------------------|--------------------|
 | 注册验证码    | [/registercode](#regcode)               | POST               |
-| 用户         | [/user](#user)                          | GET / POST         |
+| 用户         | [/user](#user)                          | POST               |
+| 手机用户     | [/user/cellphone/:phoneno](#cellphone)   | GET                |
 | 单一用户     | /user/:id                                | GET / PUT          |
 | 用户实名资料  | /user/:id/realname                      | GET / PUT          |
 | 商户        | /merchant                                | GET / POST         |
@@ -217,11 +218,12 @@ Content-Length: 100
   }
 }
 ```
-
-#### 2\. 获取指定用户手机号的用户信息
+<a id="cellphone"></a>
+### 手机用户 /user/cellphone/:phoneno
+#### 1\. 获取指定用户手机号的用户信息
 请求：  
 ```
-GET /user?cellphone=13811190292 HTTP/1.1
+GET /user/cellphone/13811190292 HTTP/1.1
 Host: api.vcpos.cn
 Authorization: SIGN appid:md5signature
 Date: Wed, 8 Apr 2015 15:51 GMT
