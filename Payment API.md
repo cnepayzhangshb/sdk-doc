@@ -92,7 +92,7 @@ Content-Length: 100
 x-zftapi-request-id: 81e1d8cf-60b1-426c-bd96-8e39c9f57235
 
 {
-  "respMsg": "验证码发送成功",
+  "respMsg": "验设备初始化成功",
   "respCode": "success",
   "isSuccess": true,
   "respTime": "201503080",
