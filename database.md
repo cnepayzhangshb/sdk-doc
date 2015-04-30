@@ -30,7 +30,6 @@ label required auto 商户名称
 merchantcode required auto 15 ascii 商户代号 主键  
 createtime required auto  
 userid id required  
-type required 0:standard agent 1:big merchant 2:personal  
 
 ---
 
@@ -57,6 +56,7 @@ extendid required 与商户业务详情表的id关联
 id required auto 主键  
 createtime required auto  
 merchantno 中汇商户号  
+type required 0:standard agent 1:big merchant 2:personal  
 status 0:disabled 1: enabled auto 1  
 
 ---
