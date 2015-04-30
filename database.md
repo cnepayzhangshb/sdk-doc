@@ -4,18 +4,18 @@ id required auto 主键
 createtime required auto  
 
 avatar qiniu serveice key auto  
-username case-sensitive contains non-numeric  
-cellphone required 主键  
+username case-sensitive contains non-numeric, indexed  
+cellphone required, indexed  
 password md5-wrapped  
 
 // emailauth  
-email lowercase 唯一  
+email lowercase 唯一, indexed  
 emailvalidate bool  
 // realnameauth  
 
 realname  
 idtype 0:personal id  
-idnumber 唯一  
+idnumber 与idtype组合需唯一 indexed  
 realnamevalidate bool  
 
 // security  
@@ -23,23 +23,43 @@ securitytype required 0:disabled 1:low(no pass) 2:medium(email un-validate) 3:hi
 
 ---
 
-## 用户业务关联表 用于存储用户业务数据的，包括收单业务，信用卡还款业务，转账业务，水电煤缴费业务，每个业务限制每个用户只能关联一次  
+## 商户表  
 // basic info  
 id required auto 主键  
+label required auto 商户名称
+merchantcode required auto 15 ascii 商户代号 主键  
 createtime required auto  
-userid required  
-businessname required 'bankcardMerchant:收单业务'等业务名称，和业务表一一对应  
-businessid required 业务关联id  
+userid id required  
+type required 0:standard agent 1:big merchant 2:personal  
 
 ---
 
-## 收单业务表信息  
+## 业务字典表
+// basic info  
+id required auto 主键  
+businesscode required 主键  
+businessname required '收单业务'等业务名称  
+
+---
+
+## 商户业务关联表 用于存储商户业务数据的，包括收单业务，或者其他在线收款业务  
 // basic info  
 id required auto 主键  
 createtime required auto  
-maxmerchantcount required auto 1 最大商户数  
+merchantid required 与商户表中的id关联  
+businesscode required 从业务字典中选区code，将和实际的商户业务详情表一一对应  
+extendid required 与商户业务详情表的id关联  
+
+---
+
+## 商户业务收单详情表  
+// basic info  
+id required auto 主键  
+createtime required auto  
+merchantno 中汇商户号  
 status 0:disabled 1: enabled auto 1  
 
+---
 
 ## 时效表 用于验证码、邮箱验证、token验证等各类验证，或者token、session等各类会话  
 // basic info  
@@ -54,22 +74,6 @@ failurecount required auto 0
 
 ---
 
-## 商户表  
-// basic info  
-id required auto 主键  
-createtime required auto  
-merchantno required 索引，等同于实际商户的商户号，商户号关联  
-businessid required 关联业务表id  
-type required 0:standard agent 1:big merchant 2:personal  
-
-// business info  
-allowapi required 0:disallow 1:allow  
-// appuser redundant info  
-// agencycode required redundant info  
-...  
-
----
-
 ## 订单表  
 // basic info  
 id required auto 主键  
@@ -78,8 +82,9 @@ orderno required auto like 20150423096325154638 主键，年月日时分秒6位�
 amount required  
 
 // business  
-ordertype 'cardpayment'/'zhifubao'/'weixin'  
-transid fill in when triggering trading  
+merchantid required
+businesscode 业务code，将和实际的商户业务详情表一一对应  
+transno 产生交易时对应实际的商户收款业务关联信息，不同的业务关联方式不一样，这一个字段需要和businesscode联合使用才有意义，收单业务可以是交易数据库id  
 ordername the order name   
 orderinfo comment  
 expired required  
