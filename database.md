@@ -26,10 +26,10 @@ securitytype required 0:disabled 1:low(no pass) 2:medium(email un-validate) 3:hi
 ## 商户表  
 // basic info  
 id required auto 主键  
-label required auto 商户名称
+merchantlabel required auto 商户标签  
 merchantcode required auto 15 ascii 商户代号 主键  
 createtime required auto  
-userid id required  
+userid id 可以关联一个用户，参与中汇用户管理  
 
 ---
 
@@ -82,7 +82,7 @@ orderno required auto like 20150423096325154638 主键，年月日时分秒6位�
 amount required  
 
 // business  
-merchantid required
+merchantid required  
 businesscode 业务code，将和实际的商户业务详情表一一对应  
 transno 产生交易时对应实际的商户收款业务关联信息，不同的业务关联方式不一样，这一个字段需要和businesscode联合使用才有意义，收单业务可以是交易数据库id  
 ordername the order name   
