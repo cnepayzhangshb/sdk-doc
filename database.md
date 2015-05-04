@@ -29,7 +29,7 @@ id required auto 主键
 merchantlabel required auto 商户标签  
 merchantcode required auto 15 ascii 商户代号 主键  
 createtime required auto  
-userid id 可以关联一个用户，参与中汇用户管理  
+userid id 可以关联一个用户，参与中汇用户管理 indexed  
 
 ---
 
@@ -45,17 +45,17 @@ businessname required '收单业务'等业务名称
 // basic info  
 id required auto 主键  
 createtime required auto  
-merchantid required 与商户表中的id关联  
-businesscode required 从业务字典中选区code，将和实际的商户业务详情表一一对应  
-extendid required 与商户业务详情表的id关联  
+merchantid required 与商户表中的id关联 indexed  
+businesscode required 从业务字典中选区code，将和实际的商户业务详情表一一对应 indexed  
+extendid required 与商户业务详情表的id关联 indexed  
 
 ---
 
-## 商户业务收单详情表  
+## 手机收单SDK商户业务详情表  
 // basic info  
 id required auto 主键  
 createtime required auto  
-merchantno 中汇商户号  
+merchantno 中汇商户号 indexed  
 type required 0:standard agent 1:big merchant 2:personal  
 status 0:disabled 1: enabled auto 1  
 

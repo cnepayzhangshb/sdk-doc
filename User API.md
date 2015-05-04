@@ -57,6 +57,13 @@ HTTP/1.1 405 Method Not Allowed
 HTTP/1.1 403 Forbidden
 ```
 
+## 时间校验
+调用所有接口需要进行Date时间校验，通过HTTP Request Header 中添加 `Date` 的方式进行校验：
+```
+Date: Thu, 09 Apr 2015 11:36:53 GMT
+```
+*`Date`* 的检验主要验证服务器时间与调用者的时间是否基本一致，时间差需要控制在前后3分钟内。例如，它与订单创建者设定的订单有效期相关，这个有效期可以使用相对时间，也可以使用服务器绝对时间
+
 ## 授权认证
 调用所有接口需要进行授权认证，通过在 HTTP Request Header 中添加 `Authorization` 的方式来进行权限验证：  
 ```
@@ -85,13 +92,15 @@ Authorization: SIGN <appid>:<signature>
 |-------------|-----------------------------------------|--------------------|
 | 注册验证码    | [/registercode](#regcode)               | POST               |
 | 用户         | [/user](#user)                          | POST               |
-| 手机用户     | [/user/cellphone/:phoneno](#cellphone)   | GET                |
+| 手机用户     | [/user/:cell-{phoneno}](#cellphone)      | GET                |
 | 单一用户     | /user/:id                                | GET / PUT          |
 | 用户实名资料  | /user/:id/realname                      | GET / PUT          |
-| 商户        | /merchant                                | GET / POST         |
+| 商户        | /merchant                                | POST               |
 | 单一商户     | /merchant/:id                            | GET / PUT / DELETE |
+| 单一商户     | /merchant/:mc-{mcode}                    | GET / PUT / DELETE |
 | 设备        | /device                                  | GET / POST         |
 | 单一设备     | /device/:ksnno                           | GET / PUT / DELETE |
+| 订单创建     | [/order](#order)                         | POST               |
 
   
 ----------------------------------------------------------------------------------
@@ -219,11 +228,11 @@ Content-Length: 100
 }
 ```
 <a id="cellphone"></a>
-### 手机用户 /user/cellphone/:phoneno
+### 手机用户 /user/:cell-{phoneno}
 #### 1\. 获取指定用户手机号的用户信息
 请求：  
 ```
-GET /user/cellphone/13811190292 HTTP/1.1
+GET /user/cell-13811190292 HTTP/1.1
 Host: api.vcpos.cn
 Authorization: SIGN appid:md5signature
 Date: Wed, 8 Apr 2015 15:51 GMT
@@ -245,5 +254,45 @@ Date: Wed, 8 Apr 2015 15:51 GMT
       ""
     }
   ]
+}
+```
+```
+<a id="order"></a>
+### 订单创建 /order
+#### 1\. 创建一个订单
+请求：  
+```
+POST /order HTTP/1.1
+Host: api.vcpos.cn
+Authorization: SIGN appid:md5signature
+Date: Wed, 8 Apr 2015 15:51 GMT
+Content-Type: application/json; charset=utf-8
+Content-Length: 100
+
+{
+  "amount": 12300,  // ￥123.00
+  "currency": "CNY", // default
+  "merchantcode": "M12130000000001",
+  "ordername": "",
+  "orderinfo": {},
+  "expired": "2d5h2m10s" // or numeric time acquired like new Date().getTime()
+}
+
+```
+响应：  
+```
+{
+  "status": 0,
+  "order": {
+    "_id": 3579246,
+    "_createtime": 1928739283,
+    "orderno": "20150504091240100001",
+    "amount": 12300,  // ￥123.00
+    "currency": "CNY", // default
+    "merchantcode": "M12130000000001",
+    "businesscode": ""
+    "expired": 1928739998,
+    "status": 0
+  }
 }
 ```
