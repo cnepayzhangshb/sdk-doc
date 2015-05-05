@@ -57,7 +57,7 @@ id required auto 主键
 createtime required auto  
 merchantno 中汇商户号 indexed  
 type required 0:standard agent 1:big merchant 2:personal  
-status 0:disabled 1: enabled auto 1  
+status required 0:disabled 1: enabled auto 1  
 
 ---
 
@@ -88,7 +88,7 @@ transno 产生交易时对应实际的商户收款业务关联信息，不同的
 ordername the order name   
 orderinfo comment  
 expired required  
-status 0:init 1:pending(got an ordertype and the keypair info) 2:trading 3:success 4:failure  (atomic read write)  
+status required 0:init 1:pending(got an ordertype and the keypair info) 2:trading 3:success 4:failure  (atomic read write)  
 
 ---
 

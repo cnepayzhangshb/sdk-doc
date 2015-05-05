@@ -250,8 +250,7 @@ Date: Wed, 8 Apr 2015 15:51 GMT
       "avatar": "",
       "username": "vcposuser",
       "cellphone": "13811190292",
-      "realname": "小明",
-      ""
+      "realname": "小明"
     }
   ]
 }
@@ -273,7 +272,10 @@ Content-Length: 100
   "currency": "CNY", // default
   "merchantcode": "M12130000000001",
   "ordername": "",
-  "orderinfo": {},
+  "orderinfo": {
+    "url": null,
+    "orderdetail": null
+  },
   "expired": "2d5h2m10s" // or numeric time acquired like new Date().getTime()
 }
 
