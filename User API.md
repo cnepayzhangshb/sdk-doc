@@ -39,6 +39,12 @@ Cache-Control: no-cache
 Content-Length: 100
 x-zftapi-request-id: <uuid>
 
+{
+  "code": "00",
+  "msg": "成功",
+  "data": {}
+}
+
 ...body...
 ```
 > **注：**
@@ -95,8 +101,8 @@ Authorization: SIGN <appid>:<signature>
 | 手机用户     | [/user/:cell-{phoneno}](#cellphone)      | GET                |
 | 单一用户     | /user/:id                                | GET / PUT          |
 | 用户实名资料  | /user/:id/realname                      | GET / PUT          |
-| 商户        | /merchant                                | POST               |
-| 单一商户     | /merchant/:id                            | GET / PUT / DELETE |
+| 商户        | [/merchant](#merchant)                   | POST               |
+| 单一商户     | [/merchant/:id](#merchant1)              | GET / PUT / DELETE |
 | 单一商户     | /merchant/:mc-{mcode}                    | GET / PUT / DELETE |
 | 设备        | /device                                  | GET / POST         |
 | 单一设备     | /device/:ksnno                           | GET / PUT / DELETE |
@@ -135,21 +141,21 @@ x-zftapi-request-id: 81e1d8cf-60b1-426c-bd96-8e39c9f57235
 
 {
   "msg": "验证码发送成功",
-  "code": 0
+  "code": "00"
 }
 
 // or
 
 {
   "msg": "验证码请求次数过多",
-  "code": 1
+  "code": "Q4"
 }
 
 // or
 
 {
   "msg": "手机号已被注册",
-  "code": 2,
+  "code": "P2",
 }
 ```
 #### 2\. 通过接收验证码验证手机号，以获取registertoken，用于注册
@@ -205,19 +211,17 @@ Content-Length: 100
 
 {
   "registertoken": "1aef1dacf4424acaf1e3",
-  "user": {
-    "cellphone": "13811122334",
-    "username": "vcposuser",
-    "realname": "小明"
-  }
+  "cellphone": "13811122334",
+  "username": "vcposuser",
+  "realname": "小明"
 }
 ```
 响应：  
 ```
 {
   "msg": "用户注册成功",
-  "code": 0,
-  "user": {
+  "code": "00",
+  "data": {
     "_id": 3579246,
     "_createtime": 1928739283,
     "avatar": "",
@@ -240,10 +244,10 @@ Date: Wed, 8 Apr 2015 15:51 GMT
 响应：  
 ```
 {
-  "status": 0,
+  "code": "00",
   "total": 1,
   "index": 0,
-  "user": [
+  "data": [
     {
       "_id": 3579246,
       "_createtime": 1928739283,
@@ -253,6 +257,74 @@ Date: Wed, 8 Apr 2015 15:51 GMT
       "realname": "小明"
     }
   ]
+}
+```
+<a id="merchant"></a>
+### 商户 /merchant
+#### 1\. 创建一个商户
+请求：  
+```
+POST /merchant HTTP/1.1
+Host: api.vcpos.cn
+Authorization: SIGN appid:md5signature
+Date: Wed, 8 Apr 2015 15:51 GMT
+Content-Type: application/json; charset=utf-8
+Content-Length: 10
+
+{
+  "label": "小刚的马家堡火锅店"
+}
+
+```
+响应：  
+```
+{
+  "code": "00",
+  "msg": "成功",
+  "data": {
+    "_id": 3579246,
+    "_createtime": 1928739283,
+    "label": "小刚的马家堡火锅店",
+    "merchantcode": "M12130000000001",
+    "userid": null,
+    "business": {}
+  }
+}
+```
+<a id="merchant1"></a>
+### 单一商户 /merchant/:id
+#### 1\. 获取商户信息
+请求：  
+```
+GET /merchant HTTP/1.1
+Host: api.vcpos.cn
+Authorization: SIGN appid:md5signature
+Date: Wed, 8 Apr 2015 15:51 GMT
+Content-Type: application/json; charset=utf-8
+
+```
+响应：  
+```
+{
+  "code": "00",
+  "msg": "成功",
+  "data": {
+    "_id": 3579246,
+    "_createtime": 1928739283,
+    "label": "小刚的马家堡火锅店",
+    "merchantcode": "M12130000000001",
+    "userid": null,
+    "business": {
+      "SJSDSDK": {
+        "businessname": "手机收单SDK",
+        "_id": 123414512,
+        "_createtime": 1928739283,
+        "merchantno": "500100002000120",
+        "type": 2,
+        "status": 1
+      }
+    }
+  }
 }
 ```
 <a id="order"></a>
@@ -283,8 +355,9 @@ Content-Length: 100
 响应：  
 ```
 {
-  "status": 0,
-  "order": {
+  "status": "00",
+  "成功",
+  "data": {
     "_id": 3579246,
     "_createtime": 1928739283,
     "orderno": "20150504091240100001",
