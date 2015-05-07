@@ -6,6 +6,7 @@
 1. 该接口适用对象：服务商的服务器
 2. 该接口实现功能：用户的创建与管理，商户的创建与管理，设备的绑定与管理
 3. 该接口调用规范：采用REST规范的HTTPS请求与中汇的服务器进行通信
+4. 该接口调用权限：暂无控制
 ```
 > **注：**
 > 文中所有 `<>` 标注的字段，均需根据你的实际情况替换（无需 `<>` 符号，仅作标注之用）
@@ -102,8 +103,8 @@ Authorization: SIGN <appid>:<signature>
 | 单一用户     | /user/:id                                | GET / PUT          |
 | 用户实名资料  | /user/:id/realname                      | GET / PUT          |
 | 商户        | [/merchant](#merchant)                   | POST               |
-| 单一商户     | [/merchant/:id](#merchant1)              | GET / PUT / DELETE |
-| 单一商户     | /merchant/:mc-{mcode}                    | GET / PUT / DELETE |
+| 单一商户     | [/merchant/:idOrCode](#merchant1)        | GET / PUT / DELETE |
+| 商户业务     | [/merchant/:idOrCode/business](#business)| GET / PUT          |
 | 设备        | /device                                  | GET / POST         |
 | 单一设备     | /device/:ksnno                           | GET / PUT / DELETE |
 | 订单创建     | [/order](#order)                         | POST               |
@@ -286,17 +287,17 @@ Content-Length: 10
     "_createtime": 1928739283,
     "label": "小刚的马家堡火锅店",
     "merchantcode": "M12130000000001",
-    "userid": null,
-    "business": {}
+    "userid": null
   }
 }
 ```
 <a id="merchant1"></a>
-### 单一商户 /merchant/:id
+### 单一商户 /merchant/:idOrCode
+> `idOrCode` 指内容为纯 `id` 或者 `code-{merchantCode}`  
 #### 1\. 获取商户信息
 请求：  
 ```
-GET /merchant HTTP/1.1
+GET /merchant/3579246 HTTP/1.1
 Host: api.vcpos.cn
 Authorization: SIGN appid:md5signature
 Date: Wed, 8 Apr 2015 15:51 GMT
@@ -312,19 +313,68 @@ Content-Type: application/json; charset=utf-8
     "_id": 3579246,
     "_createtime": 1928739283,
     "label": "小刚的马家堡火锅店",
-    "merchantcode": "M12130000000001",
-    "userid": null,
-    "business": {
-      "SJSDSDK": {
-        "businessname": "手机收单SDK",
-        "_id": 123414512,
-        "_createtime": 1928739283,
-        "merchantno": "500100002000120",
-        "type": 2,
-        "status": 1
-      }
+    "merchantcode": "M12131",
+    "userid": null
+  }
+}
+```
+<a id="business"></a>
+### 商户业务 /merchant/:idOrCode/business
+> `idOrCode` 指内容为纯 `id` 或者 `code-{merchantCode}` 
+#### 1\. 获取商户业务数据
+请求：  
+```
+GET /merchant/3579246/business HTTP/1.1
+Host: api.vcpos.cn
+Authorization: SIGN appid:md5signature
+Date: Wed, 8 Apr 2015 15:51 GMT
+Content-Type: application/json; charset=utf-8
+
+```
+响应：  
+```
+{
+  "code": "00",
+  "msg": "成功",
+  "data": {
+    "SJSDSDK": {
+      "_id": 123414512,
+      "_createtime": 1928739283,
+      "businessname": "手机收单SDK",
+      "businesscode": "SJSDSDK",
+      "merchantno": "500100002000120",
+      "type": 2,
+      "status": 1
     }
   }
+}
+```
+#### 2\. 修改商户业务数据
+请求：  
+```
+PUT /merchant/3579246/business HTTP/1.1
+Host: api.vcpos.cn
+Authorization: SIGN appid:md5signature
+Date: Wed, 8 Apr 2015 15:51 GMT
+Content-Type: application/json; charset=utf-8
+Content-Length: 25
+
+{
+  "update": {
+    "SJSDSDK": {
+      "merchantno": "500100002000120",
+      "type": 2,
+      "status": 1
+    }
+  }
+}
+
+```
+响应：  
+```
+{
+  "code": "00",
+  "msg": "成功"
 }
 ```
 <a id="order"></a>

@@ -38,6 +38,7 @@ userid id 可以关联一个用户，参与中汇用户管理 indexed
 id required auto 主键  
 businesscode required 主键  
 businessname required '收单业务'等业务名称  
+businesstablename required 实际业务的表名称，例如'收单业务'的表名称  
 
 ---
 
