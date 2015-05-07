@@ -321,7 +321,8 @@ Content-Type: application/json; charset=utf-8
 ```
 <a id="business"></a>
 ### 商户业务 /merchant/:idOrCode/business
-> `idOrCode` 指内容为纯 `id` 或者 `code-{merchantCode}` 
+> `idOrCode` 指内容为纯 `id` 或者 `code-{merchantCode}`
+
 #### 1\. 获取商户业务数据
 请求：  
 ```
