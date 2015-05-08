@@ -111,8 +111,8 @@ Authorization: SIGN <appid>:<signature>
 
   
 ----------------------------------------------------------------------------------
-<a id="regcode"></a>
-### 注册验证码  /registercode
+
+### <a name="regcode"></a>注册验证码  /registercode
 #### 1\. 通过注册手机号发送注册验证码
 请求：  
 ```
@@ -197,9 +197,7 @@ Content-Length: 30
   "code": 2,
 }
 ```
-
-<a id="user"></a>
-### 用户 /user
+### <a name="user"></a>用户 /user
 #### 1\. 通过registertoken创建用户
 请求：  
 ```
@@ -232,8 +230,7 @@ Content-Length: 100
   }
 }
 ```
-<a id="cellphone"></a>
-### 手机用户 /user/:cell-{phoneno}
+### <a name="cellphone"></a>手机用户 /user/:cell-{phoneno}
 #### 1\. 获取指定用户手机号的用户信息
 请求：  
 ```
@@ -260,8 +257,7 @@ Date: Wed, 8 Apr 2015 15:51 GMT
   ]
 }
 ```
-<a id="merchant"></a>
-### 商户 /merchant
+### <a name="merchant"></a>商户 /merchant
 #### 1\. 创建一个商户
 请求：  
 ```
@@ -291,8 +287,7 @@ Content-Length: 10
   }
 }
 ```
-<a id="merchant1"></a>
-### 单一商户 /merchant/:idOrCode
+### <a name="merchant1"></a>单一商户 /merchant/:idOrCode
 > `idOrCode` 指内容为纯 `id` 或者 `code-{merchantCode}`
 
 #### 1\. 获取商户信息
@@ -319,8 +314,7 @@ Content-Type: application/json; charset=utf-8
   }
 }
 ```
-<a id="business"></a>
-### 商户业务 /merchant/:idOrCode/business
+### <a name="business"></a>商户业务 /merchant/:idOrCode/business
 > `idOrCode` 指内容为纯 `id` 或者 `code-{merchantCode}`
 
 #### 1\. 获取商户业务数据
@@ -379,8 +373,7 @@ Content-Length: 25
   "msg": "成功"
 }
 ```
-<a id="order"></a>
-### 订单创建 /order
+### <a name="order"></a>订单创建 /order
 #### 1\. 创建一个订单
 请求：  
 ```
