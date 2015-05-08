@@ -22,12 +22,12 @@ http://zftpay.21er.net:15080 # 测试环境
 ```sh
 curl -X POST \
     http://zftpay.21er.net:15080/<资源路径> \
-    -H "Date: Wed, 8 Apr 2015 15:51 GMT"
-    -H "x-order-id: 0020150303120864123456" \
+    -H "Date: Wed, 8 Apr 2015 15:51 GMT" \
+    -H "x-order-no: 20150303120864123456" \
     # 其他可选参数，参数以键值对呈现...
 ```
 > **注：**
-> `x-order-id` 为交易请求的订单号，需携带订单号，作为一笔交易的唯一凭证
+> `x-order-no` 为交易请求的订单号，需携带订单号，作为一笔交易的唯一凭证
 
 ## 标准响应
 * 订单校验通过的情况下  
@@ -76,7 +76,7 @@ Host: payment.vcpos.cn
 Date: Wed, 8 Apr 2015 15:51 GMT
 Content-Type: application/x-www-form-urlencoded; charset=utf-8
 Content-Length: 30
-x-order-id: 0020150303120864123456
+x-order-no: 0020150303120864123456
 
 ksnNo=600012345678
 ```

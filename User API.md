@@ -108,6 +108,7 @@ Authorization: SIGN <appid>:<signature>
 | 设备        | /device                                  | GET / POST         |
 | 单一设备     | /device/:ksnno                           | GET / PUT / DELETE |
 | 订单创建     | [/order](#order)                         | POST               |
+| 单一订单     | [/order/:orderNo](#order1)               | GET / PUT          |
 
   
 ----------------------------------------------------------------------------------
