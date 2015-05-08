@@ -362,8 +362,8 @@ Content-Type: application/json; charset=utf-8
 Content-Length: 25
 
 {
-  "update": {
-    "SJSDSDK": {
+  "add": {   // 表示新增业务
+    "SJSDSDK": {  // 手机收单业务
       "merchantno": "500100002000120",
       "type": 2,
       "status": 1
