@@ -107,7 +107,7 @@ Authorization: SIGN <appid>:<signature>
 | 商户业务     | [/merchant/:idOrCode/business](#business)| GET / PUT          |
 | 设备        | /device                                  | GET / POST         |
 | 单一设备     | /device/:ksnno                           | GET / PUT / DELETE |
-| 订单创建     | [/order](#order)                         | POST               |
+| 订单        | [/order](#order)                         | POST / GET         |
 | 单一订单     | [/order/:orderNo](#order1)               | GET / PUT          |
 
   
@@ -387,7 +387,7 @@ Content-Length: 25
 }
 ```
 ##### [返回目录↑](#content-title)
-### <a name="order"></a>订单创建 /order
+### <a name="order"></a>订单 /order
 #### 1\. 创建一个订单
 请求：  
 ```
@@ -423,9 +423,51 @@ Content-Length: 100
     "amount": 12300,  // ￥123.00
     "currency": "CNY", // default
     "merchantcode": "M12130000000001",
-    "businesscode": ""
+    "businesscode": null,
     "expired": 1928739998,
-    "status": 0
+    "status": 0,
+    "ordername": "乐高玩具",
+    "orderinfo": {
+      "url": "http://taobao.com/234243324",
+      "orderdetail": null
+    }
+  }
+}
+```
+##### [返回目录↑](#content-title)
+### <a name="order1"></a>单一订单 /order/:orderNo
+> `orderNo` 指代一个订单号
+
+#### 1\. 根据订单号查询一个订单
+请求：  
+```
+GET /order/20150504091240100001 HTTP/1.1
+Host: api.vcpos.cn
+Authorization: SIGN appid:md5signature
+Date: Wed, 8 Apr 2015 15:51 GMT
+Content-Type: application/json; charset=utf-8
+
+```
+响应：  
+```
+{
+  "status": "00",
+  "成功",
+  "data": {
+    "_id": 3579246,
+    "_createtime": 1928739283,
+    "orderno": "20150504091240100001",
+    "amount": 12300,  // ￥123.00
+    "currency": "CNY", // default
+    "merchantcode": "M12130000000001",
+    "businesscode": "SJSDSDK",
+    "expired": 1928739998,
+    "status": 1,
+    "ordername": "乐高玩具",
+    "orderinfo": {
+      "url": "http://taobao.com/234243324",
+      "orderdetail": null
+    }
   }
 }
 ```
