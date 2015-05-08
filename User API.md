@@ -94,7 +94,7 @@ Authorization: SIGN <appid>:<signature>
 特别地，参数字符串都必须使用 Encoding `utf-8` 编码处理
 
 
-## RESTful资源路径
+## <a name="content-title"></a>RESTful资源路径
 | 资源名称     | 路径                                     | 可使用的方法         |
 |-------------|-----------------------------------------|--------------------|
 | 注册验证码    | [/registercode](#regcode)               | POST               |
@@ -197,6 +197,7 @@ Content-Length: 30
   "code": 2,
 }
 ```
+##### [返回目录↑](#content-title)
 ### <a name="user"></a>用户 /user
 #### 1\. 通过registertoken创建用户
 请求：  
@@ -230,6 +231,7 @@ Content-Length: 100
   }
 }
 ```
+##### [返回目录↑](#content-title)
 ### <a name="cellphone"></a>手机用户 /user/:cell-{phoneno}
 #### 1\. 获取指定用户手机号的用户信息
 请求：  
@@ -257,6 +259,7 @@ Date: Wed, 8 Apr 2015 15:51 GMT
   ]
 }
 ```
+##### [返回目录↑](#content-title)
 ### <a name="merchant"></a>商户 /merchant
 #### 1\. 创建一个商户
 请求：  
@@ -287,6 +290,7 @@ Content-Length: 10
   }
 }
 ```
+##### [返回目录↑](#content-title)
 ### <a name="merchant1"></a>单一商户 /merchant/:idOrCode
 > `idOrCode` 指内容为纯 `id` 或者 `code-{merchantCode}`
 
@@ -314,6 +318,7 @@ Content-Type: application/json; charset=utf-8
   }
 }
 ```
+##### [返回目录↑](#content-title)
 ### <a name="business"></a>商户业务 /merchant/:idOrCode/business
 > `idOrCode` 指内容为纯 `id` 或者 `code-{merchantCode}`
 
@@ -373,6 +378,7 @@ Content-Length: 25
   "msg": "成功"
 }
 ```
+##### [返回目录↑](#content-title)
 ### <a name="order"></a>订单创建 /order
 #### 1\. 创建一个订单
 请求：  
@@ -415,3 +421,4 @@ Content-Length: 100
   }
 }
 ```
+##### [返回目录↑](#content-title)
