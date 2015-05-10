@@ -95,21 +95,22 @@ Authorization: SIGN <appid>:<signature>
 
 
 ## <a name="content-title"></a>RESTful资源路径
-| 资源名称     | 路径                                     | 可使用的方法         |
-|-------------|-----------------------------------------|--------------------|
-| 注册验证码    | [/registercode](#regcode)               | POST               |
-| 用户         | [/user](#user)                          | POST               |
-| 手机用户     | [/user/:cell-{phoneno}](#cellphone)      | GET                |
-| 单一用户     | /user/:id                                | GET / PUT          |
-| 用户实名资料  | /user/:id/realname                      | GET / PUT          |
-| 商户        | [/merchant](#merchant)                   | POST               |
-| 单一商户     | [/merchant/:idOrCode](#merchant1)        | GET / PUT / DELETE |
-| 商户业务     | [/merchant/:idOrCode/business](#business)| GET / PUT          |
-| 设备        | /device                                  | GET / POST         |
-| 单一设备     | /device/:ksnno                           | GET / PUT / DELETE |
-| 订单        | [/order](#order)                         | POST / GET         |
-| 单一订单     | [/order/:orderNo](#order1)               | GET / PUT          |
-
+| 资源名称     | 路径                                     | 可使用的方法         | 重要记录值    |
+|-------------|-----------------------------------------|--------------------|--------------|
+| 注册验证码    | [/registercode](#regcode)               | POST               |              |
+| 用户         | [/user](#user)                          | POST               | id           |
+| 单一用户     | /user/:id                                | GET / PUT          |              |
+| 用户实名资料  | /user/:id/realname                      | GET / PUT          |              |
+| 商户        | [/merchant](#merchant)                   | POST               | merchantCode |
+| 单一商户     | [/merchant/:idOrCode](#merchant1)        | GET / PUT / DELETE |              |
+| 商户业务     | [/merchant/:idOrCode/business](#business)| GET / PUT          | merchantNo   |
+| 单一收单业务 | [/acq/:merchantno](#acq)                 | GET / PUT          | info         |
+| 设备        | [/device](#device)                       | POST               | ksnNo        |
+| 单一设备     | [/device/:idOrKsnNo](#device1)           | GET / PUT / DELETE |              |
+| 订单        | [/order](#order)                         | POST / GET         | orderNo      |
+| 单一订单     | [/order/:orderNo](#order1)               | GET                | status       |
+| 交易详情     | [/order/:orderNo/status]                 | GET                |              |
+|-------------|------------------------------------------|--------------------|--------------|
   
 ----------------------------------------------------------------------------------
 
@@ -233,34 +234,6 @@ Content-Length: 100
 }
 ```
 ##### [返回目录↑](#content-title)
-### <a name="cellphone"></a>手机用户 /user/:cell-{phoneno}
-#### 1\. 获取指定用户手机号的用户信息
-请求：  
-```
-GET /user/cell-13811190292 HTTP/1.1
-Host: api.vcpos.cn
-Authorization: SIGN appid:md5signature
-Date: Wed, 8 Apr 2015 15:51 GMT
-```
-响应：  
-```
-{
-  "code": "00",
-  "total": 1,
-  "index": 0,
-  "data": [
-    {
-      "_id": 3579246,
-      "_createtime": 1928739283,
-      "avatar": "",
-      "username": "vcposuser",
-      "cellphone": "13811190292",
-      "realname": "小明"
-    }
-  ]
-}
-```
-##### [返回目录↑](#content-title)
 ### <a name="merchant"></a>商户 /merchant
 #### 1\. 创建一个商户
 请求：  
@@ -364,9 +337,11 @@ Content-Length: 25
 {
   "add": {   // 表示新增业务
     "SJSDSDK": {  // 手机收单业务
-      "merchantno": "500100002000120",
+      "merchantno": "500100002000120", // 当type为0或1时，需提供商户号
       "type": 2, // 0表示标准进件商户，1表示大商户，2表示个人商户
-      "status": 1 // 0表示禁用，1表示启用
+      "status": 1, // 0表示禁用，1表示启用
+      "serial": "00001111001010FF", // 当type为2时，需提供激活码
+      "mobile": "13811111111" // 当type为2时，需提供手机号
     }
   }
 }
@@ -379,6 +354,10 @@ Content-Length: 25
   "msg": "成功",
   "data": {
     "SJSDSDK": {  // 手机收单业务
+      "_id": "123123123",
+      "_createtime": 1431228824888,
+      "businessname": "手机收单SDK",
+      "businesscode": "SJSDSDK",
       "merchantno": "500100002000120",
       "type": 2, // 0表示标准进件商户，1表示大商户，2表示个人商户
       "status": 1 // 0表示禁用，1表示启用
