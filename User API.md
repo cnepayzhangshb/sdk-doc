@@ -109,7 +109,7 @@ Authorization: SIGN <appid>:<signature>
 | 单一设备     | [/device/:idOrKsnNo](#device1)           | GET / PUT / DELETE |              |
 | 订单        | [/order](#order)                         | POST / GET         | orderNo      |
 | 单一订单     | [/order/:orderNo](#order1)               | GET                | status       |
-| 交易详情     | [/order/:orderNo/status]                 | GET                |              |
+| 交易详情     | [/order/:orderNo/status](#order2)        | GET                |              |
   
 ----------------------------------------------------------------------------------
 
@@ -360,6 +360,131 @@ Content-Length: 25
       "merchantno": "500100002000120",
       "type": 2, // 0表示标准进件商户，1表示大商户，2表示个人商户
       "status": 1 // 0表示禁用，1表示启用
+    }
+  }
+}
+```
+##### [返回目录↑](#content-title)
+### <a name="acq"></a>单一收单业务 /acq/:merchantno
+> `merchantno` 指代商户的收单业务中的商户号
+
+#### 1\. 获取商户收单业务详情
+请求：  
+```
+GET /acq/500100002000120 HTTP/1.1
+Host: api.vcpos.cn
+Authorization: SIGN appid:md5signature
+Date: Wed, 8 Apr 2015 15:51 GMT
+Content-Type: application/json; charset=utf-8
+
+```
+响应：  
+```
+{
+  "code": "00",
+  "msg": "成功",
+  "data": {
+    "info": {
+      "realname": {
+        "name": null, // 姓名，当status不为0时有值
+        "id": null, // 身份证，当status不为0时有值
+        "status": 0, // 0表示未提交，1表示等待审核，2表示通过，3表示失败
+        "reason": null // 当status为3时有值
+      },
+      "merchant": {
+        "name": "小刚的小店", // 收单商户名，默认为商户label
+        "license": null, // 营业执照号，当status不为0时有值
+        "address": "营业地址"，当status不为0时有值
+        "status": 0, // 0表示未提交，1表示等待审核，2表示通过，3表示失败
+        "reason": null // 当status为3时有值
+      },
+      "account": {
+        "cardno": null, // 结算卡号，个人不允许对公卡号
+        "bank": null, // 开户支行
+        "bankunion": null, // 联行号
+        "status": 0, // 0表示未提交，1表示等待审核，2表示通过，3表示失败
+        "reason": null // 当status为3时有值
+      },
+      "signature": {
+        "status": 0, // 0表示未提交，1表示等待审核，2表示通过，3表示失败
+        "reason": null // 当status为3时有值
+      }
+    }
+  }
+}
+```
+#### 2\. 修改商户收单业务详情
+请求：  
+```
+PUT /acq/500100002000120 HTTP/1.1
+Host: api.vcpos.cn
+Authorization: SIGN appid:md5signature
+Date: Wed, 8 Apr 2015 15:51 GMT
+Content-Type: multipart/farm-data; boundary=ABCD
+Content-Length: 100
+
+--ABCD
+Content-Disposition: form-data; name="patch";
+Content-Type: application/json; charset=utf-8
+Content-Length: 30
+
+{
+  "realname": {
+    "name": "小刚",
+    "id": "110222199001012314",
+    "files": [
+      "personal",
+      "personalBack"
+    ]
+  }
+}
+--ABCD
+Content-Disposition: form-data; name="personal"; filename="personal.png"
+Content-Type: image/png
+Content-Encoding: Base64
+Content-Length: 20
+
+1234567890123123123123213=
+--ABCD
+Content-Disposition: form-data; name="personalBack"; filename="personalBack.png"
+Content-Type: image/png
+Content-Encoding: Base64
+Content-Length: 20
+
+12345ABCDFEFED23123123213=
+--ABCD--
+```
+响应：  
+```
+{
+  "code": "00",
+  "msg": "成功",
+  "data": {
+    "info": {
+      "realname": {
+        "name": "小刚",
+        "id": "110222199001012314",
+        "status": 1,
+        "reason": null
+      },
+      "merchant": {
+        "name": "小刚的小店", // 收单商户名，默认为商户label
+        "license": null, // 营业执照号，当status不为0时有值
+        "address": "营业地址"，当status不为0时有值
+        "status": 0, // 0表示未提交，1表示等待审核，2表示通过，3表示失败
+        "reason": null // 当status为3时有值
+      },
+      "account": {
+        "cardno": null, // 结算卡号，个人不允许对公卡号
+        "bank": null, // 开户支行
+        "bankunion": null, // 联行号
+        "status": 0, // 0表示未提交，1表示等待审核，2表示通过，3表示失败
+        "reason": null // 当status为3时有值
+      },
+      "signature": {
+        "status": 0, // 0表示未提交，1表示等待审核，2表示通过，3表示失败
+        "reason": null // 当status为3时有值
+      }
     }
   }
 }
