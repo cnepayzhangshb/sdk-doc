@@ -367,12 +367,12 @@ Content-Length: 25
 ```
 ##### [返回目录↑](#content-title)
 ### <a name="acq"></a>单一收单业务 /acq/:merchantno
-> `merchantno` 指代商户的收单业务中的商户号
+> `merchantno` 指代商户的收单业务中的商户编号，和单一商户的商户代号有别
 
 #### 1\. 获取商户收单业务详情
-> 注：该商户必须为匹配appuser的代理商发展的商户
-> 当商户为个人商户时，可以获取到4审的状态，涵盖在 `info` 字段中
-> 任何类型商户都可以获取到商户的基本信息，该信息为只读信息，不能修改
+> 注：该商户必须为匹配appuser的代理商发展的商户  
+> 当商户为个人商户时，可以获取到4审的状态，涵盖在 `info` 字段中  
+> 任何类型商户都可以获取到商户的基本信息，该信息为只读信息，不能修改  
 > 基本信息包括：中汇商户名，中汇商户类型，维护负责人，开通状态(个人只看4审，其他看enabled)
 
 请求：  
@@ -424,12 +424,15 @@ Content-Type: application/json; charset=utf-8
 }
 ```
 #### 2\. 修改商户收单业务详情
-> 商户收单业务的修改，只有在商户为个人状态时，可以进行修改。修改的主体内容为4审资料，
-> 包括：
-> `realname` 实名认证资料提交
-> `merchant` 商户认证资料提交
-> `account` 账户认证资料提交
-> `signature` 协议签名资料提交
+> 商户收单业务的修改，只有在商户为个人状态时，可以进行修改。修改的主体内容为4审资料  
+> 包括：  
+> `realname` 实名认证资料提交  
+> `merchant` 商户认证资料提交  
+> `account` 账户认证资料提交  
+> `signature` 协议签名资料提交  
+
+> 其中，由于不支持PATCH HTTP请求，所以必须每次都提供某一个审核资料的全部信息  
+> 采用PUT HTTP请求，请求的 `Content-Type` 为 `multipart/form-data`，并需要上传图片
 
 请求：  
 ```
@@ -437,7 +440,7 @@ PUT /acq/500100002000120 HTTP/1.1
 Host: api.vcpos.cn
 Authorization: SIGN appid:md5signature
 Date: Wed, 8 Apr 2015 15:51 GMT
-Content-Type: multipart/farm-data; boundary=ABCD
+Content-Type: multipart/form-data; boundary=ABCD
 Content-Length: 100
 
 --ABCD
