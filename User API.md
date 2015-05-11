@@ -369,6 +369,11 @@ Content-Length: 25
 > `merchantno` 指代商户的收单业务中的商户号
 
 #### 1\. 获取商户收单业务详情
+> 注：该商户必须为匹配appuser的代理商发展的商户
+> 当商户为个人商户时，可以获取到4审的状态，涵盖在 `info` 字段中
+> 任何类型商户都可以获取到商户的基本信息，该信息为只读信息，不能修改
+> 基本信息包括：中汇商户名，中汇商户类型，维护负责人，开通状态(个人只看4审，其他看enabled)
+
 请求：  
 ```
 GET /acq/500100002000120 HTTP/1.1
@@ -384,6 +389,10 @@ Content-Type: application/json; charset=utf-8
   "code": "00",
   "msg": "成功",
   "data": {
+    "merchantName": "小刚的小店",
+    "type": "P",
+    "salesman": "李大伟",
+    "enabled": 1,
     "info": {
       "realname": {
         "name": null, // 姓名，当status不为0时有值
@@ -414,6 +423,13 @@ Content-Type: application/json; charset=utf-8
 }
 ```
 #### 2\. 修改商户收单业务详情
+> 商户收单业务的修改，只有在商户为个人状态时，可以进行修改。修改的主体内容为4审资料，
+> 包括：
+> `realname` 实名认证资料提交
+> `merchant` 商户认证资料提交
+> `account` 账户认证资料提交
+> `signature` 协议签名资料提交
+
 请求：  
 ```
 PUT /acq/500100002000120 HTTP/1.1
