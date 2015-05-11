@@ -95,23 +95,24 @@ Authorization: SIGN <appid>:<signature>
 
 
 ## <a name="content-title"></a>RESTful资源路径
-| 资源名称     | 路径                                     | 可使用的方法         | 重要记录值    |
-|-------------|-----------------------------------------|--------------------|--------------|
-| 注册验证码    | [/registercode](#regcode)               | POST               |              |
-| 用户         | [/user](#user)                          | POST               | id           |
-| 单一用户     | /user/:id                                | GET / PUT          |              |
-| 用户实名资料  | /user/:id/realname                      | GET / PUT          |              |
-| 商户        | [/merchant](#merchant)                   | POST               | merchantCode |
-| 单一商户     | [/merchant/:idOrCode](#merchant1)        | GET / PUT / DELETE |              |
-| 商户业务     | [/merchant/:idOrCode/business](#business)| GET / PUT          | merchantNo   |
-| 单一收单业务 | [/acq/:merchantno](#acq)                 | GET / PUT          | info         |
-| 设备        | [/device](#device)                       | POST               | ksnNo        |
-| 单一设备     | [/device/:idOrKsnNo](#device1)           | GET / PUT / DELETE |              |
-| 订单        | [/order](#order)                         | POST / GET         | orderNo      |
-| 单一订单     | [/order/:orderNo](#order1)               | GET                | status       |
-| 交易详情     | [/order/:orderNo/status](#order2)        | GET                |              |
+| 资源名称     | 路径                                     | 可使用的方法              | 重要记录值    |
+|-------------|-----------------------------------------|-------------------------|--------------|
+| 注册验证码    | [/registercode](#regcode)               | POST                    |              |
+| 用户         | [/user](#user)                          | POST                    | id           |
+| 单一用户     | /user/:id                                | GET / PUT              |              |
+| 用户实名资料  | /user/:id/realname                      | GET / PUT               |              |
+| 商户        | [/merchant](#merchant)                   | `POST`                  | merchantCode |
+| 单一商户     | [/merchant/:idOrCode](#merchant1)        | `GET` / PUT / `DELETE` |              |
+| 商户业务     | [/merchant/:idOrCode/business](#business)| `GET` / `PUT`          | merchantNo   |
+| 单一收单业务 | [/acq/:merchantno](#acq)                 | GET / PUT               | info         |
+| 设备        | [/device](#device)                       | POST                    | ksnNo        |
+| 单一设备     | [/device/:idOrKsnNo](#device1)           | GET / PUT / DELETE     |              |
+| 订单        | [/order](#order)                         | `POST` / GET            | orderNo      |
+| 单一订单     | [/order/:orderNo](#order1)               | `GET`                  | status       |
+| 交易详情     | [/order/:orderNo/status](#order2)        | GET                    |              |
   
-----------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------
+> 注： 方法中 使用 `METHOD` 标注了的表示已经完成了的功能
 
 ### <a name="regcode"></a>注册验证码  /registercode
 #### 1\. 通过注册手机号发送注册验证码
