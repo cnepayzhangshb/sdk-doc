@@ -56,7 +56,7 @@ extendid required 与商户业务详情表的id关联 indexed
 // basic info  
 id required auto 主键  
 createtime required auto  
-merchantno 中汇商户号 indexed  
+merchantno required 中汇商户号 indexed  
 type required 0:standard agent 1:big merchant 2:personal  
 status required 0:disabled 1: enabled auto 1  
 
@@ -95,8 +95,7 @@ status required 0:init 1:pending(got an ordertype and the keypair info) 2:tradin
 
 ## 服务商appkey  
 // basic info  
-id required auto
-appid required uuid 主键  
+id required uuid 主键  
 createtime required auto  
 appkey required  
 appuser required 'PM1010'/'android' should be corresponding to the level 1 agencycode  
