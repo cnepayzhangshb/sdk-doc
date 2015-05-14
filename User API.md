@@ -109,7 +109,7 @@ Authorization: SIGN <appid>:<signature>
 | 单一设备     | [/acq/:merchantno/device/:id](#device1)  | GET / PUT / DELETE     |              |
 | 订单        | [/order](#order)                         | `POST` / GET            | orderNo      |
 | 单一订单     | [/order/:orderNo](#order1)               | `GET`                  | status       |
-| 交易详情     | [/order/:orderNo/status](#order2)        | GET                    | receiptUrl   |
+| 交易结果     | [/order/:orderNo/status](#order2)        | GET                    | receiptUrl   |
 | 交易小票     | [/acq/receipt/:name](#receipt)           | GET                    |              |
   
 --------------------------------------------------------------------------------------------------
@@ -626,6 +626,8 @@ Content-Type: application/json; charset=utf-8
 }
 ```
 #### 2\. 更换一个已知设备，或者绑定一个新设备到已有终端
+> 更换一个设备后，原有的KSN状态将被置为作废状态
+
 请求：  
 ```
 PUT /acq/500100002000120/device/235234 HTTP/1.1
@@ -762,7 +764,7 @@ Content-Type: application/json; charset=utf-8
 #### 1\. 根据订单号查询一个订单的详情结果
 请求：  
 ```
-GET /order/20150504091240100001 HTTP/1.1
+GET /order/20150504091240100001/status HTTP/1.1
 Host: api.vcpos.cn
 Authorization: SIGN appid:md5signature
 Date: Wed, 8 Apr 2015 15:51 GMT
@@ -791,7 +793,7 @@ Content-Type: application/json; charset=utf-8
       "voucherno": "123145", // 流水号
       "transdate": 1928739283,
       "operater": "01",
-      "url": "/acq/receipt/xxxxxxxxxxxxx" // 小票下载
+      "receipturl": "/acq/receipt/xxxxxxxxxxxxx" // 小票下载
     } 
   }
 }
