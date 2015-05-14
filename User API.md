@@ -105,11 +105,12 @@ Authorization: SIGN <appid>:<signature>
 | 单一商户     | [/merchant/:idOrCode](#merchant1)        | `GET` / PUT / `DELETE` |              |
 | 商户业务     | [/merchant/:idOrCode/business](#business)| `GET` / `PUT`          | merchantNo   |
 | 单一收单业务 | [/acq/:merchantno](#acq)                 | GET / PUT               | info         |
-| 设备        | [/device](#device)                       | POST                    | ksnNo        |
-| 单一设备     | [/device/:idOrKsnNo](#device1)           | GET / PUT / DELETE     |              |
+| 终端设备     | [/acq/:merchantno/device](#device)       | POST / GET              | ksnNo        |
+| 单一设备     | [/acq/:merchantno/device/:id](#device1)  | GET / PUT / DELETE     |              |
 | 订单        | [/order](#order)                         | `POST` / GET            | orderNo      |
 | 单一订单     | [/order/:orderNo](#order1)               | `GET`                  | status       |
-| 交易详情     | [/order/:orderNo/status](#order2)        | GET                    |              |
+| 交易详情     | [/order/:orderNo/status](#order2)        | GET                    | receiptUrl   |
+| 交易小票     | [/acq/receipt/:name](#receipt)           | GET                    |              |
   
 --------------------------------------------------------------------------------------------------
 > 注： 方法中 使用 `METHOD` 标注了的表示已经完成了的功能
@@ -510,6 +511,166 @@ Content-Length: 20
 }
 ```
 ##### [返回目录↑](#content-title)
+### <a name="device"></a>设备 /acq/:merchantno/device
+> `merchantno` 指代一个中汇商户号
+
+#### 1\. 新建一个终端设备并绑定KSN
+请求：  
+```
+POST /acq/500100002000120/device HTTP/1.1
+Host: api.vcpos.cn
+Authorization: SIGN appid:md5signature
+Date: Wed, 8 Apr 2015 15:51 GMT
+Content-Type: application/json; charset=utf-8
+Content-Length: 100
+
+{
+  "ksn": "600010000001",  // KSN编号
+  "isbluetooth": true, // 是否是蓝牙设备，如果不是，就没有bluetooth字段，服务器会验证该字段
+  "bluetooth": {
+    "btmac": "AA:BB:CC:DD:EE:00",
+    "btname": "M35-66775678"
+  },
+  "model": "landim35",
+  "merchantcode": "M12130000000001", // 商户代号，必填，服务器会进行验证
+  "businesscode": "SJSDSDK", // 商户的业务名，必填、服务器会进行验证
+  "label": "我的联迪刷卡器" // 标签
+}
+
+```
+响应：  
+```
+{
+  "status": "00",
+  "成功",
+  "data": {
+    "_id": "235234", // 终端id
+    "_createtime": 2342421341,
+    "terminalno": "89746572", // 中汇终端号
+    "ksn": "600010000001", // 绑定的KSN号
+    "status": 1, // 0表示未使用，1表示已使用，2表示已作废，只有值为1，才有后续数据
+    "isbluetooth": true,
+    "bluetooth": {
+      "btmac": "AA:BB:CC:DD:EE:00",
+      "btname": "M35-66775678"
+    },
+    "model": "landim35",
+    "merchantno": "500100002000120",
+    "label": "我的联迪刷卡器" // 标签
+  }
+}
+```
+#### 2\. 查询所有商户的所有设备，包括绑定终端和未绑定的终端
+请求：  
+```
+GET /acq/500100002000120/device?merchantcode=M12130000000001&businesscode=SJSDSDK&pagesize=20&pageno=1 HTTP/1.1
+Host: api.vcpos.cn
+Authorization: SIGN appid:md5signature
+Date: Wed, 8 Apr 2015 15:51 GMT
+Content-Type: application/json; charset=utf-8
+
+```
+响应：  
+```
+{
+  "status": "00",
+  "成功",
+  "data": {
+    "pagesize": 20,
+    "pageno": 1,
+    "total": 1,
+    "devices": [
+      {
+        "_id": "235234",
+        "terminalno": "89746572", // 查询的设备都含有终端号
+        "ksn": "600010000001" // 查询的设备不一定含有ksn，此时ksn为null，这表示该商户还有终端号未参与绑定
+      }
+    ]
+  }
+}
+```
+##### [返回目录↑](#content-title)
+### <a name="device1"></a>单一设备 /acq/:merchantNo/device/:id
+> `merchantNo` 指代一个商户号，`id` 指代一个设备终端id
+
+#### 1\. 查询单一设备
+请求：  
+```
+GET /acq/500100002000120/device/235234?merchantcode=M12130000000001&businesscode=SJSDSDK HTTP/1.1
+Host: api.vcpos.cn
+Authorization: SIGN appid:md5signature
+Date: Wed, 8 Apr 2015 15:51 GMT
+Content-Type: application/json; charset=utf-8
+
+```
+响应：  
+```
+{
+  "status": "00",
+  "成功",
+  "data": {
+    "_id": "235234", // 终端id
+    "_createtime": 2342421341,
+    "terminalno": "89746572", // 中汇终端号
+    "ksn": "600010000001",
+    "status": 1, // 0表示未使用，1表示已使用，2表示已作废，只有值为1，才有后续数据
+    "isbluetooth": true,
+    "bluetooth": {
+      "btmac": "AA:BB:CC:DD:EE:00",
+      "btname": "M35-66775678"
+    },
+    "model": "landim35",
+    "merchantno": "500100002000120",
+    "label": "我的联迪刷卡器" // 标签
+  }
+}
+```
+#### 2\. 更换一个已知设备，或者绑定一个新设备到已有终端
+请求：  
+```
+PUT /acq/500100002000120/device/235234 HTTP/1.1
+Host: api.vcpos.cn
+Authorization: SIGN appid:md5signature
+Date: Wed, 8 Apr 2015 15:51 GMT
+Content-Type: application/json; charset=utf-8
+Content-Length: 80
+
+{
+  "ksn": "600010000002",  // KSN编号，
+  "isbluetooth": true, // 是否是蓝牙设备，如果不是，就没有bluetooth字段，服务器会验证该字段
+  "bluetooth": {
+    "btmac": "AA:BB:CC:DD:EE:01",
+    "btname": "M35-66775679"
+  },
+  "model": "landim35",
+  "merchantcode": "M12130000000001",
+  "businesscode": "SJSDSDK",
+  "label": "我的联迪刷卡器2" // 标签
+}
+```
+响应：  
+```
+{
+  "status": "00",
+  "成功",
+  "data": {
+    "_id": "235234", // 终端id
+    "_createtime": 2342421341,
+    "terminalno": "89746572", // 中汇终端号
+    "ksn": "600010000002",
+    "status": 1, // 0表示未使用，1表示已使用，2表示已作废，只有值为1，才有后续数据
+    "isbluetooth": true,
+    "bluetooth": {
+      "btmac": "AA:BB:CC:DD:EE:01",
+      "btname": "M35-66775679"
+    },
+    "model": "landim35",
+    "merchantno": "500100002000120",
+    "label": "我的联迪刷卡器2" // 标签
+  }
+}
+```
+##### [返回目录↑](#content-title)
 ### <a name="order"></a>订单 /order
 #### 1\. 创建一个订单
 请求：  
@@ -546,7 +707,7 @@ Content-Length: 100
     "amount": 12300,  // ￥123.00
     "currency": "CNY", // default
     "merchantcode": "M12130000000001",
-    "businesscode": null,
+    "businesscode": null, // 当status 不为0才有值，否则为null
     "expired": 1928739998,
     "status": 0,
     "ordername": "乐高玩具",
@@ -585,12 +746,53 @@ Content-Type: application/json; charset=utf-8
     "merchantcode": "M12130000000001",
     "businesscode": "SJSDSDK",
     "expired": 1928739998,
-    "status": 1,
+    "status": 1, // 0表示init，1表示pending，2表示trading，3表示成功，4表示失败
     "ordername": "乐高玩具",
     "orderinfo": {
       "url": "http://taobao.com/234243324",
       "orderdetail": null
     }
+  }
+}
+```
+##### [返回目录↑](#content-title)
+### <a name="order2"></a>订单详情 /order/:orderNo/status
+> `orderNo` 指代一个订单号
+
+#### 1\. 根据订单号查询一个订单的详情结果
+请求：  
+```
+GET /order/20150504091240100001 HTTP/1.1
+Host: api.vcpos.cn
+Authorization: SIGN appid:md5signature
+Date: Wed, 8 Apr 2015 15:51 GMT
+Content-Type: application/json; charset=utf-8
+
+```
+响应：  
+```
+{
+  "status": "00",
+  "成功",
+  "data": {
+    "status": 3, // 订单结果, 只有status为3，才会有交易详情detail的结果，否则detail为null或{}
+    "detail": {
+      "transno": "1324354657", // 交易代号 意义由实际交易业务决定
+      "businesscode": "SJSDSDK",
+      "merchantname": "小刚的小店",
+      "merchantno": "500100002000120",
+      "terminalno": "89746572",
+      "amount": 12300, // ￥123.00
+      "cardno": "6222020200068682136", // 卡号
+      "transtype": "sale",
+      "authno": "", // 授权码有时候没有
+      "refno": "123456789123456", // 参考号
+      "patchno": "147895461", // 批次号
+      "voucherno": "123145", // 流水号
+      "transdate": 1928739283,
+      "operater": "01",
+      "url": "/acq/receipt/xxxxxxxxxxxxx" // 小票下载
+    } 
   }
 }
 ```
