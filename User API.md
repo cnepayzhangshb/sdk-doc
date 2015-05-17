@@ -391,7 +391,7 @@ Content-Type: application/json; charset=utf-8
   "code": "00",
   "msg": "成功",
   "data": {
-    "merchantName": "小刚的小店",
+    "merchantname": "小刚的小店",
     "type": "P",
     "salesman": "李大伟",
     "enabled": 1,
@@ -481,6 +481,10 @@ Content-Length: 20
   "code": "00",
   "msg": "成功",
   "data": {
+    "merchantname": "小刚的小店",
+    "type": "P",
+    "salesman": "李大伟",
+    "enabled": 1,
     "info": {
       "realname": {
         "name": "小刚",
@@ -560,7 +564,7 @@ Content-Length: 100
   }
 }
 ```
-#### 2\. 查询所有商户的所有设备，包括绑定终端和未绑定的终端
+#### 2\. 查询单个手机收单商户的所有设备，包括绑定终端和未绑定的终端
 请求：  
 ```
 GET /acq/500100002000120/device?merchantcode=M12130000000001&businesscode=SJSDSDK&pagesize=20&pageno=1 HTTP/1.1
