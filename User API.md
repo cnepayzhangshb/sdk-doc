@@ -378,7 +378,7 @@ Content-Length: 25
 
 请求：  
 ```
-GET /acq/500100002000120 HTTP/1.1
+GET /acq/500100002000120?merchantcode=M12130000000001&businesscode=SJSDSDK HTTP/1.1
 Host: api.vcpos.cn
 Authorization: SIGN appid:md5signature
 Date: Wed, 8 Apr 2015 15:51 GMT
@@ -444,6 +444,14 @@ Date: Wed, 8 Apr 2015 15:51 GMT
 Content-Type: multipart/form-data; boundary=ABCD
 Content-Length: 100
 
+--ABCD
+Content-Disposition: form-data; name="merchantcode"
+
+M12130000000001
+--ABCD
+Content-Disposition: form-data: name="businesscode"
+
+SJSDSDK
 --ABCD
 Content-Disposition: form-data; name="patch";
 Content-Type: application/json; charset=utf-8
