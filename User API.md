@@ -104,13 +104,13 @@ Authorization: SIGN <appid>:<signature>
 | 商户        | [/merchant](#merchant)                   | `POST`                  | merchantCode |
 | 单一商户     | [/merchant/:idOrCode](#merchant1)        | `GET` / PUT / `DELETE` |              |
 | 商户业务     | [/merchant/:idOrCode/business](#business)| `GET` / `PUT`          | merchantNo   |
-| 单一收单业务 | [/acq/:merchantno](#acq)                 | GET / PUT               | info         |
-| 终端设备     | [/acq/:merchantno/device](#device)       | POST / GET              | ksnNo        |
-| 单一设备     | [/acq/:merchantno/device/:id](#device1)  | GET / PUT / DELETE     |              |
-| 订单        | [/order](#order)                         | `POST` / GET            | orderNo      |
+| 单一收单业务 | [/acq/:merchantno](#acq)                 | `GET` / `PUT`           | info         |
+| 终端设备     | [/acq/:merchantno/device](#device)       | `POST` / `GET`         | ksnNo        |
+| 单一设备     | [/acq/:merchantno/device/:id](#device1)  | `GET` / `PUT` / DELETE |              |
+| 订单        | [/order](#order)                         | `POST` / GET           | orderNo      |
 | 单一订单     | [/order/:orderNo](#order1)               | `GET`                  | status       |
-| 交易结果     | [/order/:orderNo/status](#order2)        | GET                    | receiptUrl   |
-| 交易小票     | [/acq/receipt/:name](#receipt)           | GET                    |              |
+| 交易结果     | [/order/:orderNo/status](#order2)        | `GET`                  | receiptUrl   |
+| 交易小票     | [/acq/receipt/:name](#receipt)           | `GET`                  |              |
   
 --------------------------------------------------------------------------------------------------
 > 注： 方法中 使用 `METHOD` 标注了的表示已经完成了的功能
@@ -276,7 +276,6 @@ GET /merchant/3579246 HTTP/1.1
 Host: api.vcpos.cn
 Authorization: SIGN appid:md5signature
 Date: Wed, 8 Apr 2015 15:51 GMT
-Content-Type: application/json; charset=utf-8
 
 ```
 响应：  
@@ -304,7 +303,6 @@ GET /merchant/3579246/business HTTP/1.1
 Host: api.vcpos.cn
 Authorization: SIGN appid:md5signature
 Date: Wed, 8 Apr 2015 15:51 GMT
-Content-Type: application/json; charset=utf-8
 
 ```
 响应：  
@@ -382,7 +380,6 @@ GET /acq/500100002000120?merchantcode=M12130000000001&businesscode=SJSDSDK HTTP/
 Host: api.vcpos.cn
 Authorization: SIGN appid:md5signature
 Date: Wed, 8 Apr 2015 15:51 GMT
-Content-Type: application/json; charset=utf-8
 
 ```
 响应：  
@@ -579,7 +576,6 @@ GET /acq/500100002000120/device?merchantcode=M12130000000001&businesscode=SJSDSD
 Host: api.vcpos.cn
 Authorization: SIGN appid:md5signature
 Date: Wed, 8 Apr 2015 15:51 GMT
-Content-Type: application/json; charset=utf-8
 
 ```
 响应：  
@@ -612,7 +608,6 @@ GET /acq/500100002000120/device/235234?merchantcode=M12130000000001&businesscode
 Host: api.vcpos.cn
 Authorization: SIGN appid:md5signature
 Date: Wed, 8 Apr 2015 15:51 GMT
-Content-Type: application/json; charset=utf-8
 
 ```
 响应：  
@@ -743,7 +738,6 @@ GET /order/20150504091240100001 HTTP/1.1
 Host: api.vcpos.cn
 Authorization: SIGN appid:md5signature
 Date: Wed, 8 Apr 2015 15:51 GMT
-Content-Type: application/json; charset=utf-8
 
 ```
 响应：  
@@ -780,7 +774,6 @@ GET /order/20150504091240100001/status HTTP/1.1
 Host: api.vcpos.cn
 Authorization: SIGN appid:md5signature
 Date: Wed, 8 Apr 2015 15:51 GMT
-Content-Type: application/json; charset=utf-8
 
 ```
 响应：  
@@ -809,5 +802,22 @@ Content-Type: application/json; charset=utf-8
     } 
   }
 }
+```
+##### [返回目录↑](#content-title)
+### <a name="receipt"></a>交易小票 /acq/receipt/:name
+> `name` 指代一个收单交易详情中的小票名称
+
+#### 1\. 交易小票图片的获取
+请求：  
+```
+GET /acq/receipt/20150504091240100001.jpg HTTP/1.1
+Host: api.vcpos.cn
+Authorization: SIGN appid:md5signature
+Date: Wed, 8 Apr 2015 15:51 GMT
+
+```
+响应：  
+```
+图片的binary
 ```
 ##### [返回目录↑](#content-title)
