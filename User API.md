@@ -105,7 +105,7 @@ Authorization: SIGN <appid>:<signature>
 | 单一商户     | [/merchant/:idOrCode](#merchant1)        | `GET` / PUT / `DELETE` |              |
 | 商户业务     | [/merchant/:idOrCode/business](#business)| `GET` / `PUT`          | merchantNo   |
 | 单一收单业务 | [/acq/:merchantno](#acq)                 | `GET` / `PUT`           | info         |
-| 终端设备     | [/acq/:merchantno/device](#device)       | `POST` / `GET`         | ksnNo        |
+| 终端设备     | [/acq/:merchantno/device](#device)       | `POST` / `GET`         | id           |
 | 单一设备     | [/acq/:merchantno/device/:id](#device1)  | `GET` / `PUT` / DELETE |              |
 | 订单        | [/order](#order)                         | `POST` / GET           | orderNo      |
 | 单一订单     | [/order/:orderNo](#order1)               | `GET`                  | status       |
