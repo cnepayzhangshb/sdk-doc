@@ -450,8 +450,9 @@ Content-Disposition: form-data: name="businesscode"
 
 SJSDSDK
 --ABCD
-Content-Disposition: form-data; name="patch";
+Content-Disposition: form-data; name="patch"
 Content-Type: application/json; charset=utf-8
+Content-Transfer-Encoding: 8BIT
 Content-Length: 30
 
 {
@@ -467,14 +468,14 @@ Content-Length: 30
 --ABCD
 Content-Disposition: form-data; name="personal"; filename="personal.png"
 Content-Type: image/png
-Transfer-Encoding: Base64
+Content-Transfer-Encoding: Base64
 Content-Length: 20
 
 1234567890123123123123213=
 --ABCD
 Content-Disposition: form-data; name="personalBack"; filename="personalBack.png"
 Content-Type: image/png
-Transfer-Encoding: Base64
+Content-Transfer-Encoding: Base64
 Content-Length: 20
 
 12345ABCDFEFED23123123213=
