@@ -74,25 +74,41 @@ Date: Thu, 09 Apr 2015 11:36:53 GMT
 ## 授权认证
 调用所有接口需要进行授权认证，通过在 HTTP Request Header 中添加 `Authorization` 的方式来进行权限验证：  
 ```
-Authorization: SIGN <appid>:<signature>
+Authorization: <method> <appid>:<signature>
 ```
-其中 *`appid`* 为服务商获取的 **appid** 身份，*`signature`* 为使用服务商获取的 **appkey**，根据参数计算出来的签名。
+其中 *`method`* 表示的是签名算法，*`appid`* 为服务商获取的 **appid** 身份，*`signature`* 为使用服务商获取的 **appkey**，根据参数计算出来的签名。
 > **注：**
 > **`appkey`** 作为服务商或者API使用者使用接口的特定凭证，是不能对外公开或在客户端存储使用的，是一个私有数字凭证
 
 ### 签名算法
-
+#### 1\. SIGN签名
+SIGN签名算法，*`method`* 取值为 `SIGN`，适用任何类型的接口  
 授权认证过程中的 *`signature`* 参数通过下面的方式获得：
-> 1. 将HTTP请求头中的数据当成头部数据 `<head>`
-> 2. 如果该请求含有 body，将整个 body 数据按照以下规则转换为 `<body>`  
-> **a)** 如果该请求 `Content-Type` 为 `application/json` 或者 `application/x-www-form-urlencoded` ，则直接将body内容当作 `<body>`  
-> **b)** 如果该请求 `Content-Type` 为 `multipart/form-data`， 我们会在后面的 **附录** 中解释如何转化为 `<body>`  
-> 3. 将 *`appkey`* 作为 `<key>`
-> 4. 将 *`appid`* 作为 `<id>`
+> 1. 将 *`appid`* 作为 `<id>`  
+> 2. 将HTTP请求行中的数据当成头部数据 `<head>`，例如 `GET /order HTTP/1.1`  
+> 3. 如果该请求含有 body，将整个 body 字节组作为 `<body>`，否则为空  
+> 4. 将 *`appkey`* 作为 `<key>`  
 > 5. 连接整个数据 `<id><head><body><key>` 并对其进行MD5签名，得到 *`signature`*
 
-特别地，参数字符串都必须使用 Encoding `utf-8` 编码处理
+特别地，未指明编码时，必须使用 Encoding `utf-8` 编码处理
 
+#### 2\. TOKEN签名
+TOKEN签名算法，*`method`* 取值为 `TOKEN`，适用于除了获取token接口的所有接口，该方法暂未实现  
+授权认证过程中的 *`signature`* 为服务器回传的 `x-zftapi-request-token`
+
+#### 3\. FORM签名
+FORM签名算法，*`method`* 取值为 `FORM`，适用 form 类型的接口，该方法暂未实现  
+授权认证过程中的 *`signature`* 参数通过下面的方式获得：
+> 1. 将 *`appid`* 作为 `<id>`  
+> 2. 将HTTP请求行中的数据当成头部数据 `<head>`，例如 `GET /order HTTP/1.1`  
+> 3. 如果该请求含有 body，将整个 body 字节组按照以下规则组合为 `<body>`，否则为空  
+> > a) 请求体为 form-data 格式，将每一对 key value 连接在一起，每行一对  
+> > b) 每行数据按照二进制做8字节异或，不足8字节右补0x00，每行都可以得到一个8字节的异或结果  
+> > c) 将所有行做8字节异或，最终的8字节作为 `<body>`  
+> 4. 将 *`appkey`* 作为 `<key>`  
+> 5. 连接整个数据 `<id><head><body><key>` 并对其进行MD5签名，得到 *`signature`*
+
+特别地，未指明编码时，必须使用 Encoding `utf-8` 编码处理
 
 ## <a name="content-title"></a>RESTful资源路径
 | 资源名称     | 路径                                     | 可使用的方法            | 重要记录值   |
