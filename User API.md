@@ -95,22 +95,22 @@ Authorization: SIGN <appid>:<signature>
 
 
 ## <a name="content-title"></a>RESTful资源路径
-| 资源名称     | 路径                                     | 可使用的方法              | 重要记录值    |
-|-------------|-----------------------------------------|-------------------------|--------------|
-| 注册验证码    | [/registercode](#regcode)               | POST                    |              |
-| 用户         | [/user](#user)                          | POST                    | id           |
-| 单一用户     | /user/:id                                | GET / PUT              |              |
-| 用户实名资料  | /user/:id/realname                      | GET / PUT               |              |
-| 商户        | [/merchant](#merchant)                   | `POST`                  | merchantCode |
-| 单一商户     | [/merchant/:idOrCode](#merchant1)        | `GET` / PUT / `DELETE` |              |
-| 商户业务     | [/merchant/:idOrCode/business](#business)| `GET` / `PUT`          | merchantNo   |
+| 资源名称     | 路径                                     | 可使用的方法            | 重要记录值   |
+|--------------|------------------------------------------|-------------------------|--------------|
+| 注册验证码   | /registercode                            | POST                    |              |
+| 用户         | /user                                    | POST                    | id           |
+| 单一用户     | /user/:id                                | GET / PUT               |              |
+| 用户实名资料 | /user/:id/realname                       | GET / PUT               |              |
+| 商户         | [/merchant](#merchant)                   | `POST`                  | merchantCode |
+| 单一商户     | [/merchant/:idOrCode](#merchant1)        | `GET` / PUT / `DELETE`  |              |
+| 商户业务     | [/merchant/:idOrCode/business](#business)| `GET` / `PUT`           | merchantNo   |
 | 单一收单业务 | [/acq/:merchantno](#acq)                 | `GET` / `PUT`           | info         |
-| 终端设备     | [/acq/:merchantno/device](#device)       | `POST` / `GET`         | id           |
-| 单一设备     | [/acq/:merchantno/device/:id](#device1)  | `GET` / `PUT` / DELETE |              |
-| 订单        | [/order](#order)                         | `POST` / GET           | orderNo      |
-| 单一订单     | [/order/:orderNo](#order1)               | `GET`                  | status       |
-| 交易结果     | [/order/:orderNo/status](#order2)        | `GET`                  | receiptUrl   |
-| 交易小票     | [/acq/receipt/:name](#receipt)           | `GET`                  |              |
+| 终端设备     | [/acq/:merchantno/device](#device)       | `POST` / `GET`          | id           |
+| 单一设备     | [/acq/:merchantno/device/:id](#device1)  | `GET` / `PUT` / DELETE  |              |
+| 订单         | [/order](#order)                         | `POST` / GET            | orderNo      |
+| 单一订单     | [/order/:orderNo](#order1)               | `GET`                   | status       |
+| 交易结果     | [/order/:orderNo/status](#order2)        | `GET`                   | receiptUrl   |
+| 交易小票     | [/acq/receipt/:name](#receipt)           | `GET`                   |              |
   
 --------------------------------------------------------------------------------------------------
 > 注： 方法中 使用 `METHOD` 标注了的表示已经完成了的功能
