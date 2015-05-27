@@ -734,6 +734,7 @@ Content-Length: 100
     "currency": "CNY", // default
     "merchantcode": "M12130000000001",
     "businesscode": null, // 当status 不为0才有值，否则为null
+    "ordertoken": "c7691dc9-f37c-4757-8572-3add9fba776d", //时效令牌
     "expired": 1928739998,
     "status": 0,
     "ordername": "乐高玩具",
