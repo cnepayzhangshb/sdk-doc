@@ -111,7 +111,7 @@ x-zftapi-request-id: 81e1d8cf-60b1-426c-bd96-8e39c9f57235
 
 <a id="checkin"></a>
 ### 设备签到  /sdk/checkin
-#### 1\. 获取当前设备信息并进行签到
+#### 1\. 获取当前设备相关信息并进行签到
 请求：  
 ```
 POST /pay/init HTTP/1.1
@@ -152,7 +152,7 @@ x-zftapi-request-id: 81e1d8cf-60b1-426c-bd96-8e39c9f57235
 
 <a id="sale"></a>
 ### 消费  /sdk/sale
-#### 1\. 初始化一个设备以及交易所需数据
+#### 1\. 验证交易信息并消费 
 请求：  
 ```
 POST /pay/init HTTP/1.1
@@ -160,9 +160,14 @@ Host: payment.vcpos.cn
 Date: Wed, 8 Apr 2015 15:51 GMT
 Content-Type: application/x-www-form-urlencoded; charset=utf-8
 Content-Length: 30
+x-order-code: 5352352354534
 x-order-no: 0020150303120864123456
-
-ksnNo=600012345678
+reqTime: 20120920234600
+amount: 1
+encTracks: sdfgfdg
+ksnNo: 600012345677
+checksum: 10
+appVersion: V3
 ```
 响应：  
 ```
@@ -176,20 +181,28 @@ Content-Length: 100
 x-zftapi-request-id: 81e1d8cf-60b1-426c-bd96-8e39c9f57235
 
 {
-  "respMsg": "验设备初始化成功",
-  "respCode": "success",
-  "isSuccess": true,
-  "respTime": "201503080",
-  "model": "landim35",
-  "aids": [],
-  "rids": [],
-  "workey": "1312324123182AD23234BC"
+  "reqNo": "324234234",
+  "merchantName": "cnepay",
+  "merchantNo": "fd-32-yt-45-34",
+  "terminalNo": "45453453",
+  "operatorNo": "01",
+  "resultCode": "00",
+  "cardNoWipe": 12,
+  "amount": 32,
+  "currency": "CNY",
+  "issuer": "erwf",
+  "voucherNo": "werwer",
+  "batchNo": "gdssf",
+  "transTime": "2015435352646980987987987",
+  "refNo": "gd453453",
+  "authNo": "423534546",
+  "script": "fdsfa"
 }
 ```
 
 <a id="saleNotify"></a>
 ### IC脚本回调  /sdk/saleNotify
-#### 1\. 初始化一个设备以及交易所需数据
+#### 1\. 效验交易信息并响应
 请求：  
 ```
 POST /pay/init HTTP/1.1
@@ -197,9 +210,18 @@ Host: payment.vcpos.cn
 Date: Wed, 8 Apr 2015 15:51 GMT
 Content-Type: application/x-www-form-urlencoded; charset=utf-8
 Content-Length: 30
-x-order-no: 0020150303120864123456
-
-ksnNo=600012345678
+x-order-code: 3453634534534534
+x-order-no: 904534589234023948348
+reqTime: 20150920234600
+cardNo： 798787987986776
+origReqTime: 20151020267600
+origReqNo: 5dff4353453
+origBatchNo: 3254645645fg
+ksnNo: 75fg546f45ddsf45646
+icData: fghgdfgdhfgh98dsfsdf
+origTransTime: 20150443267600
+origTransType: 1
+appVersion: V3
 ```
 响应：  
 ```
@@ -213,14 +235,10 @@ Content-Length: 100
 x-zftapi-request-id: 81e1d8cf-60b1-426c-bd96-8e39c9f57235
 
 {
-  "respMsg": "验设备初始化成功",
+  "respMsg": "成功",
   "respCode": "success",
   "isSuccess": true,
-  "respTime": "201503080",
-  "model": "landim35",
-  "aids": [],
-  "rids": [],
-  "workey": "1312324123182AD23234BC"
+  "respTime": "201503080"
 }
 ```
 
