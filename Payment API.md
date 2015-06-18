@@ -137,6 +137,10 @@ Content-Length: 100
 x-zftapi-request-id: 81e1d8cf-60b1-426c-bd96-8e39c9f57235
 
 {
+  "respMsg": "验设备初始化成功",
+  "respCode": "success",
+  "isSuccess": true,
+  "respTime": "201503080",
   "name": "cnepay",
   "macAddress": "20-89-84-D3-A9-30",
   "ksnNo": "600012345679",
@@ -181,6 +185,10 @@ Content-Length: 100
 x-zftapi-request-id: 81e1d8cf-60b1-426c-bd96-8e39c9f57235
 
 {
+  "respMsg": "验设备初始化成功",
+  "respCode": "success",
+  "isSuccess": true,
+  "respTime": "201503080",
   "reqNo": "324234234",
   "merchantName": "cnepay",
   "merchantNo": "fd-32-yt-45-34",
