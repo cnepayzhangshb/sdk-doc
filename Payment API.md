@@ -66,6 +66,9 @@ HTTP/1.1 403 Forbidden
 | 刷卡设备初始化| [/pay/init](#init)                      | urlencoded           |
 | 设备签到| [/sdk/checkin](#checkin)                      | urlencoded           |
 | 消费| [/sdk/sale](#sale)                      | urlencoded           |
+| IC脚本回调| [/sdk/saleNotify](#saleNotify)                      | urlencoded           |
+| 交易查询| [/sdk/transStatus](#transStatus)                      | urlencoded           |
+| 设备签到| [/sdk/finishDownloadIcPublic](#finishDownloadIcPublic)                      | urlencoded           |
 
   
 ----------------------------------------------------------------------------------
@@ -108,7 +111,7 @@ x-zftapi-request-id: 81e1d8cf-60b1-426c-bd96-8e39c9f57235
 
 <a id="checkin"></a>
 ### 设备签到  /sdk/checkin
-#### 2\. 初始化一个设备以及交易所需数据
+#### 1\. 初始化一个设备以及交易所需数据
 请求：  
 ```
 POST /pay/init HTTP/1.1
@@ -145,7 +148,118 @@ x-zftapi-request-id: 81e1d8cf-60b1-426c-bd96-8e39c9f57235
 
 <a id="sale"></a>
 ### 消费  /sdk/sale
-#### 3\. 初始化一个设备以及交易所需数据
+#### 1\. 初始化一个设备以及交易所需数据
+请求：  
+```
+POST /pay/init HTTP/1.1
+Host: payment.vcpos.cn
+Date: Wed, 8 Apr 2015 15:51 GMT
+Content-Type: application/x-www-form-urlencoded; charset=utf-8
+Content-Length: 30
+x-order-no: 0020150303120864123456
+
+ksnNo=600012345678
+```
+响应：  
+```
+HTTP/1.1 200 OK
+Server: Nginx
+Date: Thu, 09 Apr 2015 11:36:53 GMT
+Content-Type: application/json; charset=utf-8
+Connection: keep-alive
+Cache-Control: no-cache
+Content-Length: 100
+x-zftapi-request-id: 81e1d8cf-60b1-426c-bd96-8e39c9f57235
+
+{
+  "respMsg": "验设备初始化成功",
+  "respCode": "success",
+  "isSuccess": true,
+  "respTime": "201503080",
+  "model": "landim35",
+  "aids": [],
+  "rids": [],
+  "workey": "1312324123182AD23234BC"
+}
+```
+
+<a id="saleNotify"></a>
+### IC脚本回调  /sdk/saleNotify
+#### 1\. 初始化一个设备以及交易所需数据
+请求：  
+```
+POST /pay/init HTTP/1.1
+Host: payment.vcpos.cn
+Date: Wed, 8 Apr 2015 15:51 GMT
+Content-Type: application/x-www-form-urlencoded; charset=utf-8
+Content-Length: 30
+x-order-no: 0020150303120864123456
+
+ksnNo=600012345678
+```
+响应：  
+```
+HTTP/1.1 200 OK
+Server: Nginx
+Date: Thu, 09 Apr 2015 11:36:53 GMT
+Content-Type: application/json; charset=utf-8
+Connection: keep-alive
+Cache-Control: no-cache
+Content-Length: 100
+x-zftapi-request-id: 81e1d8cf-60b1-426c-bd96-8e39c9f57235
+
+{
+  "respMsg": "验设备初始化成功",
+  "respCode": "success",
+  "isSuccess": true,
+  "respTime": "201503080",
+  "model": "landim35",
+  "aids": [],
+  "rids": [],
+  "workey": "1312324123182AD23234BC"
+}
+```
+
+<a id="transStatus"></a>
+### 交易查询  /sdk/transStatus
+#### 1\. 初始化一个设备以及交易所需数据
+请求：  
+```
+POST /pay/init HTTP/1.1
+Host: payment.vcpos.cn
+Date: Wed, 8 Apr 2015 15:51 GMT
+Content-Type: application/x-www-form-urlencoded; charset=utf-8
+Content-Length: 30
+x-order-no: 0020150303120864123456
+
+ksnNo=600012345678
+```
+响应：  
+```
+HTTP/1.1 200 OK
+Server: Nginx
+Date: Thu, 09 Apr 2015 11:36:53 GMT
+Content-Type: application/json; charset=utf-8
+Connection: keep-alive
+Cache-Control: no-cache
+Content-Length: 100
+x-zftapi-request-id: 81e1d8cf-60b1-426c-bd96-8e39c9f57235
+
+{
+  "respMsg": "验设备初始化成功",
+  "respCode": "success",
+  "isSuccess": true,
+  "respTime": "201503080",
+  "model": "landim35",
+  "aids": [],
+  "rids": [],
+  "workey": "1312324123182AD23234BC"
+}
+```
+
+<a id="finishDownloadIcPublic"></a>
+### 设备签到  /sdk/finishDownloadIcPublic
+#### 1\. 初始化一个设备以及交易所需数据
 请求：  
 ```
 POST /pay/init HTTP/1.1
