@@ -111,7 +111,7 @@ x-zftapi-request-id: 81e1d8cf-60b1-426c-bd96-8e39c9f57235
 
 <a id="checkin"></a>
 ### 设备签到  /sdk/checkin
-#### 1\. 初始化一个设备以及交易所需数据
+#### 1\. 获取当前设备信息并进行签到
 请求：  
 ```
 POST /pay/init HTTP/1.1
@@ -119,9 +119,11 @@ Host: payment.vcpos.cn
 Date: Wed, 8 Apr 2015 15:51 GMT
 Content-Type: application/x-www-form-urlencoded; charset=utf-8
 Content-Length: 30
+x-order-code: 5352352354534
 x-order-no: 0020150303120864123456
-
-ksnNo=600012345678
+reqTime: 20120920234600 
+ksnNo: 600012345679
+appVersion: V3
 ```
 响应：  
 ```
@@ -135,14 +137,16 @@ Content-Length: 100
 x-zftapi-request-id: 81e1d8cf-60b1-426c-bd96-8e39c9f57235
 
 {
-  "respMsg": "验设备初始化成功",
-  "respCode": "success",
-  "isSuccess": true,
-  "respTime": "201503080",
-  "model": "landim35",
-  "aids": [],
-  "rids": [],
-  "workey": "1312324123182AD23234BC"
+  "name": "cnepay",
+  "macAddress": "20-89-84-D3-A9-30",
+  "ksnNo": "600012345679",
+  "bluetoothName": "fdsfssdg",
+  "amount": 1,
+  "model": 4ffd5d,
+  "DES3": Des3Tpk,
+  "needUpdateIC": "true",
+  "data": "0x9F060x9F22",
+  "isBluetooth": "true"
 }
 ```
 
