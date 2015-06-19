@@ -68,7 +68,7 @@ HTTP/1.1 403 Forbidden
 | 消费| [/sdk/sale](#sale)                      | urlencoded           |
 | IC脚本回调| [/sdk/saleNotify](#saleNotify)                      | urlencoded           |
 | 交易查询| [/sdk/transStatus](#transStatus)                      | urlencoded           |
-| 设备签到| [/sdk/finishDownloadIcPublic](#finishDownloadIcPublic)                      | urlencoded           |
+| 更新设备状态| [/sdk/finishDownloadIcPublic](#finishDownloadIcPublic)                      | urlencoded           |
 
   
 ----------------------------------------------------------------------------------
@@ -302,8 +302,8 @@ x-zftapi-request-id: 81e1d8cf-60b1-426c-bd96-8e39c9f57235
 ```
 
 <a id="finishDownloadIcPublic"></a>
-### 设备签到  /sdk/finishDownloadIcPublic
-#### 1\. 更新设备状态
+### 更新设备状态  /sdk/finishDownloadIcPublic
+#### 1\. 根据kns编号更新设备状态
 请求：  
 ```
 POST /sdk/finishDownloadIcPublic HTTP/1.1
