@@ -81,11 +81,14 @@ Host: payment.vcpos.cn
 Date: Wed, 8 Apr 2015 15:51 GMT
 Content-Type: application/x-www-form-urlencoded; charset=utf-8
 Content-Length: 30
-x-order-code: 5352352354534
-x-order-no: 0020150303120864123456
-reqTime: 20120920234600 
-ksnNo: 600012345679
-appVersion: V3
+
+{
+    "x-order-code": "eb62561b-bc2b-4690-a9af-b2facdb8fd9a",
+    "x-order-no": "20150629131005000063",
+    "reqTime": "201506291315",
+    "ksnNo": "4880000000004613",
+    "appVersion": "设备名.系统名.系统版本号"
+}
 ```
 响应：  
 ```
@@ -96,22 +99,47 @@ Content-Type: application/json; charset=utf-8
 Connection: keep-alive
 Cache-Control: no-cache
 Content-Length: 100
-x-zftapi-request-id: 81e1d8cf-60b1-426c-bd96-8e39c9f57235
 
 {
   "respMsg": "签到成功",
   "respCode": "success",
   "isSuccess": true,
-  "respTime": "201503080",
+  "respTime": "201506291315",
   "name": "cnepay",
   "macAddress": "20-89-84-D3-A9-30",
-  "ksnNo": "600012345679",
+  "ksnNo": "4880000000004613",
   "bluetoothName": "fdsfssdg",
   "amount": 1,
   "model": 4ffd5d,
   "DES3": Des3Tpk,
   "needUpdateIC": "true",
-  "data": "0x9F060x9F22",
+  "data": {
+    "rids": {
+        "0x9F06": "...",
+        "0x9F22": "...",
+        "0xDF05": "...",
+        "0xDF06": "...",
+        "0xDF07": "...",
+        "0xDF02": "...",
+        "0xDF04": "...",
+        "0xDF03": "..."
+    },
+    "aids": {
+        "0x9F06": "...",
+        "0xDF01": "...",
+        "0x9F08": "...",
+        "0x9F09": "...",
+        "0xDF11": "...",
+        "0xDF12": "...",
+        "0xDF15": "...",
+        "0xDF13": "...",
+        "0x9F1B": "...",
+        "0xDF16": "...",
+        "0xDF17": "...",
+        "0xDF14": "...",
+        "0xDF18": "..."
+    }
+  },
   "isBluetooth": "true"
 }
 ```
@@ -126,14 +154,17 @@ Host: payment.vcpos.cn
 Date: Wed, 8 Apr 2015 15:51 GMT
 Content-Type: application/x-www-form-urlencoded; charset=utf-8
 Content-Length: 30
-x-order-code: 5352352354534
-x-order-no: 0020150303120864123456
-reqTime: 20120920234600
-amount: 1
-encTracks: sdfgfdg
-ksnNo: 600012345677
-checksum: 10
-appVersion: V3
+
+{
+    "x-order-code": "20150629131005000063",
+    "x-order-no": "eb62561b-bc2b-4690-a9af-b2facdb8fd9a",
+    "reqTime": "201506291315",
+    "amount": 1,
+    "encTracks": "...",
+    "ksnNo": "4880000000004613",
+    "checksum": 10,
+    "appVersion": "设备名.系统名.系统版本号"
+}
 ```
 响应：  
 ```
@@ -144,14 +175,13 @@ Content-Type: application/json; charset=utf-8
 Connection: keep-alive
 Cache-Control: no-cache
 Content-Length: 100
-x-zftapi-request-id: 81e1d8cf-60b1-426c-bd96-8e39c9f57235
 
 {
   "respMsg": "成功",
   "respCode": "success",
   "isSuccess": true,
-  "respTime": "201503080",
-  "reqNo": "324234234",
+  "respTime": "201506291315",
+  "reqNo": "...",
   "merchantName": "cnepay",
   "merchantNo": "fd-32-yt-45-34",
   "terminalNo": "45453453",
@@ -163,10 +193,10 @@ x-zftapi-request-id: 81e1d8cf-60b1-426c-bd96-8e39c9f57235
   "issuer": "erwf",
   "voucherNo": "werwer",
   "batchNo": "gdssf",
-  "transTime": "2015435352646980987987987",
-  "refNo": "gd453453",
-  "authNo": "423534546",
-  "script": "fdsfa"
+  "transTime": "2201506291315456354634734734645645",
+  "refNo": "...",
+  "authNo": "...",
+  "script": "f55"
 }
 ```
 
@@ -180,18 +210,21 @@ Host: payment.vcpos.cn
 Date: Wed, 8 Apr 2015 15:51 GMT
 Content-Type: application/x-www-form-urlencoded; charset=utf-8
 Content-Length: 30
-x-order-code: 3453634534534534
-x-order-no: 904534589234023948348
-reqTime: 20150920234600
-cardNo： 798787987986776
-origReqTime: 20151020267600
-origReqNo: 5dff4353453
-origBatchNo: 3254645645fg
-ksnNo: 75fg546f45ddsf45646
-icData: fghgdfgdhfgh98dsfsdf
-origTransTime: 20150443267600
-origTransType: 1
-appVersion: V3
+
+{
+    "x-order-code": "eb62561b-bc2b-4690-a9af-b2facdb8fd9a",
+    "x-order-no": "20150629131005000063",
+    "reqTime": "201506291315",
+    "cardNo": "...",
+    "origReqTime": "201506291315",
+    "origReqNo": "...",
+    "origBatchNo": "...",
+    "ksnNo": "4880000000004613",
+    "icData": "...",
+    "origTransTime": "201506291315",
+    "origTransType": 1,
+    "appVersion": "设备名.系统名.系统版本号"
+}
 ```
 响应：  
 ```
@@ -202,13 +235,13 @@ Content-Type: application/json; charset=utf-8
 Connection: keep-alive
 Cache-Control: no-cache
 Content-Length: 100
-x-zftapi-request-id: 81e1d8cf-60b1-426c-bd96-8e39c9f57235
 
 {
+  "reqNo": null,
   "respMsg": "成功",
   "respCode": "success",
   "isSuccess": true,
-  "respTime": "201503080"
+  "respTime": "201506291315"
 }
 ```
 
@@ -222,13 +255,16 @@ Host: payment.vcpos.cn
 Date: Wed, 8 Apr 2015 15:51 GMT
 Content-Type: application/x-www-form-urlencoded; charset=utf-8
 Content-Length: 30
-x-order-code: 457476745675
-x-order-no: 6575474654654646545
-reqTime: 20150619234600
-origReqNo: dfd676df78dsf678cvsd7
-origReqTime: 20150619234620
-origTransType: sale
-amount: 999
+
+{
+    "x-order-code": "eb62561b-bc2b-4690-a9af-b2facdb8fd9a",
+    "x-order-no": "20150629131005000063",
+    "reqTime": "201506291315",
+    "origReqNo": "...",
+    "origReqTime": "201506291315",
+    "origTransType": "sale",
+    "amount": 999
+}
 ```
 响应：  
 ```
@@ -239,27 +275,26 @@ Content-Type: application/json; charset=utf-8
 Connection: keep-alive
 Cache-Control: no-cache
 Content-Length: 100
-x-zftapi-request-id: 81e1d8cf-60b1-426c-bd96-8e39c9f57235
 
 {
   "respMsg": "成功",
   "respCode": "success",
   "isSuccess": true,
-  "respTime": "201506190",
-  "reqNo": "dfd676df78dsf678cvsd7",
+  "respTime": "201506291315",
+  "reqNo": "...",
   "merchantName": "cnepay",
-  "merchantNo": "4jj65hjh56lk34hg",
-  "terminalNo": "df87df7af76vc90",
+  "merchantNo": "...",
+  "terminalNo": "...",
   "operatorNo": "01",
-  "cardNoWipe": "3243",
-  "amount": "23432",
+  "cardNoWipe": "...",
+  "amount": 999,
   "currency": "CNY",
   "issuer": "xiaozhang",
-  "voucherNo": "878df87gsd5sf54df5dsf",
-  "batchNo": "7665jkhhjh567jh567",
-  "transTime": "20150506124539",
-  "refNo": "et543jh435hj45jh45jh34",
-  "authNo": "f6sdfdsf5sf564s5df45sd4fsd54"
+  "voucherNo": "...",
+  "batchNo": "...",
+  "transTime": "201506291315",
+  "refNo": "...",
+  "authNo": "..."
 }
 ```
 
@@ -273,10 +308,13 @@ Host: payment.vcpos.cn
 Date: Wed, 8 Apr 2015 15:51 GMT
 Content-Type: application/x-www-form-urlencoded; charset=utf-8
 Content-Length: 30
-x-order-code: 5474675464
-x-order-no: 68gfdg87df78dsfsd7
-reqTime: 20150619112500
-ksnNo: df5df65fsd56sf7
+
+{
+    "x-order-code": "eb62561b-bc2b-4690-a9af-b2facdb8fd9a",
+    "x-order-no": "20150629131005000063",
+    "reqTime": "201506291315",
+    "ksnNo": "4880000000004613"
+}
 ```
 响应：  
 ```
@@ -287,12 +325,11 @@ Content-Type: application/json; charset=utf-8
 Connection: keep-alive
 Cache-Control: no-cache
 Content-Length: 100
-x-zftapi-request-id: 81e1d8cf-60b1-426c-bd96-8e39c9f57235
 
 {
   "respMsg": "已更新状态!",
   "respCode": "success",
   "isSuccess": true,
-  "respTime": "201506190"
+  "respTime": "201506291315"
 }
 ```
